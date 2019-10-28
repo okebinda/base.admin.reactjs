@@ -1,0 +1,124 @@
+{
+  "en": {
+    "translation": {
+      "app_name": "App Name",
+      "home_title": "$t(app_name) Admin",
+
+      "login_form_username": "Username",
+      "login_form_password": "Password",
+      "login_form_submit": "Log in",
+
+      "session_timeout_modal_title": "Session Timeout Warning",
+      "session_timeout_modal_body": "Your session will automatically timeout in {{countdown}} seconds.",
+      "session_timeout_modal_signout": "Sign out",
+      "session_timeout_modal_extend": "Stay logged in",
+
+      "locations_input_country_title": "Country",
+      "locations_input_region_title": "State/Region",
+
+      "menu_item_dashboard": "Dashboard",
+      "menu_item_user_account": "Account Settings",
+      "menu_item_users": "Users",
+      "menu_item_app_keys": "App Keys",
+      "menu_item_signout": "Sign Out",
+      "menu_item_list": "List",
+      "menu_item_create": "Add New",
+
+      "dashboard_title": "Dashboard",
+
+      "user_account_title": "Account Settings",
+      "user_account_header_account": "Account Info",
+      "user_account_header_profile": "Profile Info",
+      "user_account_header_password": "Update Password",
+      "user_account_form_username": "Username",
+      "user_account_form_email": "Email Address",
+      "user_account_form_password": "Password",
+      "user_account_form_hint_password": "Leave blank to keep existing password.",
+      "user_account_form_first_name": "First Name",
+      "user_account_form_last_name": "Last Name",
+
+      "update_password_title": "Update Password",
+      "update_password_header": "Manage Your Password",
+      "update_password_form_previous_password": "Current Password",
+      "update_password_form_password1": "New Password",
+      "update_password_form_password2": "Re-enter New Password",
+
+      "users_title": "Users",
+      "user_add_title": "Add User",
+      "user_edit_title": "Edit User",
+
+      "user_username": "Username",
+      "user_email": "Email",
+      "user_roles": "Roles",
+      "user_is_verified": "Is Verified",
+      "user_terms_of_services": "ToS",
+      "user_uri": "URI",
+      "user_password_changed_at": "Password Changed At",
+      "user_first_name": "First Name",
+      "user_last_name": "Last Name",
+      "user_joined_at": "Joined At",
+
+      "app_keys_title": "App Keys",
+      "app_key_add_title": "Add App Key",
+      "app_key_edit_title": "Edit App Key",
+      "app_key_header_app_key": "App Key",
+
+      "app_key_application": "Application",
+      "app_key_key": "Key",
+
+      "terms_of_services_title": "Terms of Services",
+      "terms_of_service_add_title": "Add Terms of Service",
+      "terms_of_service_edit_title": "Edit Terms of Service",
+      "terms_of_service_header_terms_of_service": "Terms of Service",
+
+      "terms_of_service_text": "Text",
+      "terms_of_service_version": "Version",
+      "terms_of_service_publish_date": "Publish Date",
+      
+      "roles_input_role_title": "Roles",
+  
+      "table_header_id": "ID",
+      "table_header_status": "Status",
+      "table_header_status_changed_at": "Status Changed At",
+      "table_header_created_at": "Created At",
+      "table_header_updated_at": "Updated At",
+      "table_header_actions": "Actions",
+      "action_create": "Add",
+      "action_edit": "Edit",
+      "action_delete": "Delete",
+      "action_close": "Close",
+
+      "form_input_status": "Status",
+      "form_input_options_loading": "Loading",
+      "form_input_options_choose": "Select one",
+      "form_input_options_none": "N/A",
+      "form_button_submit": "Submit",
+
+      "status_enabled": "Enabled",
+      "status_disabled": "Disabled",
+      "status_archived": "Archived",
+      "status_deleted": "Deleted",
+      "status_pending": "Pending",
+
+      "boolean_true": "Yes",
+      "boolean_false": "No",
+
+      "delete_confirm_modal_header": "Please Confirm",
+      "delete_confirm_modal_body": "Are you sure you want to delete this item?",
+      "delete_confirm_modal_button_delete": "Delete",
+      "delete_confirm_modal_button_cancel": "Cancel",
+
+      "feedback_loading": "Loading...",
+      "feedback_form_submit_in_process": "Submitting",
+      "feedback_form_success": "The form has been successfully submitted.",
+      "feedback_form_error": "There was a problem submitting the form.",
+
+      "__test_string": "Test string for unit tests, do not remove."
+    }
+  },
+  "es": {
+    "translation": {
+      "app_name": "App Name"
+    }
+  }
+}

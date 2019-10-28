@@ -1,0 +1,115 @@
+import api from './api';
+import Logger from '../lib/Logger';
+import Auth from '../lib/Auth'
+
+export const ADD_ENTITIES = 'ADD_ENTITIES';
+export const REMOVE_ENTITY = 'REMOVE_ENTITY';
+export const SESSION_CREATE_REQUEST = 'SESSION_CREATE_REQUEST';
+export const SESSION_CREATE_SUCCESS = 'SESSION_CREATE_SUCCESS';
+export const SESSION_CREATE_FAILURE = 'SESSION_CREATE_FAILURE';
+export const SESSION_DESTROY = 'SESSION_DESTROY';
+
+
+export const addEntities = (entities) => {
+  Logger.log('debug', `[actions] addEntities(%j)`, entities);
+  return {
+    type: ADD_ENTITIES,
+    payload: entities
+  }
+};
+
+export const removeEntity = (payload) => {
+  Logger.log('debug', `[actions] removeEntity(%j)`, payload);
+  return {
+    type: REMOVE_ENTITY,
+    payload: payload
+  }
+};
+
+export function sessionCreateRequest(data) {
+  Logger.log('debug', `[actions] sessionCreateRequest()`);
+  return {
+    type: SESSION_CREATE_REQUEST,
+    username: data.username,
+    password: data.password,
+  }
+}
+
+export function sessionCreateSuccess(data) {
+  Logger.log('debug', `[actions] sessionCreateSuccess(%j)`, data);
+  Auth.saveSession(data.authToken, data.authExpiration, data.authExpires, data.userId, data.username);
+  return {
+    type: SESSION_CREATE_SUCCESS,
+    authToken: data.authToken,
+    authExpiration: data.authExpiration,
+    authExpires: data.authExpires,
+    userId: data.userId,
+    username: data.username,
+    receivedAt: Date.now()
+  }
+}
+
+export function sessionCreateFailure(error) {
+  Logger.log('debug', `[actions] sessionCreateFailure(%j)`, error);
+  return {
+    type: SESSION_CREATE_FAILURE,
+    error: error
+  }
+}
+
+export function sessionDestroy() {
+  Logger.log('debug', `[actions] sessionDestroy()`);
+  Auth.deleteSession();
+  return {
+    type: SESSION_DESTROY
+  }
+}
+
+
+// API THUNK ACTION CREATORS
+
+export function createSession(data, cb=function(){}) {
+  Logger.log('debug', `[actions] createSession(###, ###)`);
+
+  return async function(dispatch) {
+    
+    dispatch(sessionCreateRequest(data));
+
+    // call API
+    const response = await api.getToken(data.username, data.password);
+
+    // get token success
+    if (200 === response.get('status')) {
+
+      Logger.log('info', `GET API token success. User: ${response.getIn(['data', 'user_id'])}`);
+
+      const sessionSuccessData = {
+        authToken: response.getIn(['data', 'token']),
+        authExpiration: response.getIn(['data', 'expiration']),
+        authExpires: Math.round(new Date().getTime()/1000) + parseInt(response.getIn(['data', 'expiration'])),
+        userId: response.getIn(['data', 'user_id']),
+        username: response.getIn(['data', 'username'])
+      };
+
+      dispatch(sessionCreateSuccess(sessionSuccessData));
+      
+    // get metric failure
+    } else {
+      Logger.log('info', `GET API token failure.`);
+      dispatch(sessionCreateFailure(response.getIn(['data', 'error'])));
+    }
+
+    // callback function
+    cb();
+  }
+}
+
+export function destroySession(cb=function(){}) {
+  Logger.log('debug', `[actions] destroySession(###)`);
+  return async function(dispatch) {
+    dispatch(sessionDestroy());
+    cb();
+  }
+}
+
+Logger.log('silly', `actions loaded.`);
