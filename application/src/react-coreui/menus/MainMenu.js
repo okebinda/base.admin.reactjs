@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {AppSidebarNav} from '@coreui/react';
 import i18next from 'i18next';
 
-import {pathTo} from '../Routes';
+import {pathTo, hasRoute} from '../Routes';
 import Logger from '../../lib/Logger';
-import Config from '../../Config';
 
 const navigation = {
   items: [
@@ -29,7 +28,7 @@ const navigation = {
   ],
 };
 
-if (Config.getIn(['MODULE_TOGGLES', 'users'])) {
+if (hasRoute('UsersScreen')) {
   navigation.items.push(
     {
       name: i18next.t('menu_item_users'),
@@ -51,7 +50,7 @@ if (Config.getIn(['MODULE_TOGGLES', 'users'])) {
   );
 }
 
-if (Config.getIn(['MODULE_TOGGLES', 'termsOfServices'])) {
+if (hasRoute('TermsOfServicesScreen')) {
   navigation.items.push(
     {
       name: 'Terms of Services',
@@ -85,7 +84,7 @@ navigation.items.push(
   }
 );
 
-if (Config.getIn(['MODULE_TOGGLES', 'appKeys'])) {
+if (hasRoute('AppKeysScreen')) {
   navigation.items.push(
     {
       name: i18next.t('menu_item_app_keys'),

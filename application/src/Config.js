@@ -9,10 +9,11 @@ const Config = Map({
   LANGUAGES: ['en', 'es'], // list of supported languages in two-letter format, default is first
   DEFAULT_LIST_LENGTH: 10,
   MODULE_TOGGLES: Map({
-    'userAccount': true,
-    'users': true,
-    'appKeys': true,
-    'termsOfServices': true
+    'dashboard': {'enabled': true, 'routes': true},
+    'userAccount': {'enabled': true, 'routes': true},
+    'users': {'enabled': true, 'routes': true},
+    'appKeys': {'enabled': true, 'routes': true},
+    'termsOfServices': {'enabled': true, 'routes': true}
   })
 });
 

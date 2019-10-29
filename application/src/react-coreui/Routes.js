@@ -4,68 +4,58 @@ import {generatePath} from "react-router";
 import {Map} from 'immutable';
 
 import Logger from '../lib/Logger';
+import Events from '../lib/EventEmitter';
 import PrivateRoute from './elements/containers/PrivateRouteContainer';
 import Config from '../Config';
 import {lang, defaultLang} from '../lib/Localization';
 
+// layouts
+const DefaultLayout = React.lazy(() => import('./layouts/DefaultLayout'));
+
+// public screens
 const HomeScreen = React.lazy(() => import('./screens/HomeScreen'));
 const LoginScreen = React.lazy(() => import('./screens/LoginScreen'));
 
-const DefaultLayout = React.lazy(() => import('./layouts/DefaultLayout'));
-const DashboardScreen = React.lazy(() => import('./screens/DashboardScreen'));
-const UserAccountScreen = React.lazy(() => import('./modules/userAccount/containers/UserAccountScreenContainer'));
-const UsersScreen = React.lazy(() => import('./modules/users/containers/UsersScreenContainer'));
-const UserAddScreen = React.lazy(() => import('./modules/users/containers/UserAddScreenContainer'));
-const UserEditScreen = React.lazy(() => import('./modules/users/containers/UserEditScreenContainer'));
-const AppKeysScreen = React.lazy(() => import('./modules/appKeys/containers/AppKeysScreenContainer'));
-const AppKeyAddScreen = React.lazy(() => import('./modules/appKeys/containers/AppKeyAddScreenContainer'));
-const AppKeyEditScreen = React.lazy(() => import('./modules/appKeys/containers/AppKeyEditScreenContainer'));
-const TermsOfServiceAddScreen = React.lazy(() => import('./modules/termsOfServices/containers/TermsOfServiceAddScreenContainer'));
-const TermsOfServiceEditScreen = React.lazy(() => import('./modules/termsOfServices/containers/TermsOfServiceEditScreenContainer'));
-const TermsOfServicesScreen = React.lazy(() => import('./modules/termsOfServices/containers/TermsOfServicesScreenContainer'));
-
 
 // screen name (key): [route type (element), path (prop), exact (prop), component (prop), name]
-let routes = Map({
-  'HomeScreen': ['Route', '/', true, HomeScreen, "Home"],
-  'LoginScreen': ['Route', '/login', true, LoginScreen,  "Login"],
-  // 'DefaultLayout': ['Route', '/', false, DefaultLayout, "Home"],
-  'DashboardScreen': ['PrivateRoute', '/dashboard', true, DashboardScreen, "Dashboard"]
+let defaultRoutes = Map({
+
+  // home screen exact match should use its own layout
+  'HomeScreen': ['Route', "/", true, HomeScreen],
+
+  // login screen has its own layout
+  'LoginScreen': ['Route', "/login", false, LoginScreen],
+
+  // all other logged in screens share default layout
+  'DefaultLayout': ['PrivateRoute', "/", false, DefaultLayout]
 });
 
-if (Config.getIn(['MODULE_TOGGLES', 'userAccount'])) {
-  routes = routes.merge({
-    'UserAccountScreen': ['PrivateRoute', '/user-account', true, UserAccountScreen, "User Settings"],
-  });
-}
 
-if (Config.getIn(['MODULE_TOGGLES', 'users'])) {
-  routes = routes.merge({
-    'UserAddScreen': ['PrivateRoute', '/users/add', true, UserAddScreen, "Add User"],
-    'UserEditScreen': ['PrivateRoute', '/users/edit/:id(\\d+)', true, UserEditScreen, "Edit User"],
-    'UsersScreen': ['PrivateRoute', '/users/:page(\\d+)?', true, UsersScreen, "Users"],
-  });
-}
+// routes that use the default layout
+let mainRoutes = Map();
 
-if (Config.getIn(['MODULE_TOGGLES', 'appKeys'])) {
-  routes = routes.merge({
-    'AppKeyAddScreen': ['PrivateRoute', '/app_keys/add', true, AppKeyAddScreen, "Add App Key"],
-    'AppKeyEditScreen': ['PrivateRoute', '/app_keys/edit/:id(\\d+)', true, AppKeyEditScreen, "Edit App Key"],
-    'AppKeysScreen': ['PrivateRoute', '/app_keys/:page(\\d+)?', true, AppKeysScreen, "App Keys"],
-  });
-}
+// merge all routes for generating paths
+let routes = defaultRoutes.merge(mainRoutes);
 
-if (Config.getIn(['MODULE_TOGGLES', 'termsOfServices'])) {
-  routes = routes.merge({
-    'TermsOfServiceAddScreen': ['PrivateRoute', '/terms_of_services/add', true, TermsOfServiceAddScreen, "Add Terms of Service"],
-    'TermsOfServiceEditScreen': ['PrivateRoute', '/terms_of_services/edit/:id(\\d+)', true, TermsOfServiceEditScreen, "Edit Terms of Service"],
-    'TermsOfServicesScreen': ['PrivateRoute', '/terms_of_services/:page(\\d+)?', true, TermsOfServicesScreen, "Terms of Servicea"],
-  });
-}
+// subscribe to add route events for modules
+Events.subscribe('ADD_MAIN_ROUTES', (data) => {
+  mainRoutes = mainRoutes.merge(data);
+  routes = defaultRoutes.merge(mainRoutes);
+});
 
 // if multiple languages are supported, use a language path prefix
 const routePrefix = Config.get('LANGUAGES') ? `/:lang(${Config.get('LANGUAGES').join('|')})?` : '';
 Logger.log('debug', `Routes routePrefix: ${routePrefix}`);
+
+export {routes};
+
+// test for existence of route
+export function hasRoute(screen){
+  Logger.log('debug', `hasRoute(${screen})`);
+  if (routes.has(screen)) {
+    return true;
+  }
+}
 
 // generate path to screen
 export function pathTo(screen, params=null) {
@@ -80,28 +70,27 @@ export function routesForBreadcrumb() {
 }
 
 // define app routing
-export function PublicRoutes() {
-  Logger.log('debug', `PublicRoutes()`);
+export function DefaultRoutes() {
+  Logger.log('debug', `DefaultRoutes()`);
   return (
     <Switch>
-      {routes.valueSeq().map((x, i) =>
+      {defaultRoutes.valueSeq().map((x, i) =>
         'PrivateRoute' === x[0]
-          ? null
+          ? <PrivateRoute key={i} path={routePrefix + x[1]} exact={x[2]} component={x[3]} />
           : <Route key={i} path={routePrefix + x[1]} exact={x[2]} component={x[3]} />)}
-      <PrivateRoute key='layout' path='/' component={DefaultLayout} />
       <Route render={() => (<div> Sorry, this page does not exist. </div>)} />
     </Switch>
   )
 }
 
-export function PrivateRoutes() {
-  Logger.log('debug', `PrivateRoutes()`);
+export function MainRoutes() {
+  Logger.log('debug', `MainRoutes()`);
   return (
     <Switch>
-      {routes.valueSeq().map((x, i) =>
+      {mainRoutes.valueSeq().map((x, i) =>
         'PrivateRoute' === x[0]
           ? <PrivateRoute key={i} path={routePrefix + x[1]} exact={x[2]} component={x[3]} />
-          : null)}
+          : <Route key={i} path={routePrefix + x[1]} exact={x[2]} component={x[3]} />)}
       <Route render={() => (<div> Sorry, this page does not exist. </div>)} />
     </Switch>
   )

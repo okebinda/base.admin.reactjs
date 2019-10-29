@@ -3,9 +3,8 @@ import {NavLink as RRNavLink} from 'react-router-dom';
 import {Translation} from 'react-i18next';
 import {Nav, NavItem, NavLink} from 'reactstrap';
 
-import {pathTo} from '../Routes';
+import {pathTo, hasRoute} from '../Routes';
 import Logger from '../../lib/Logger';
-import Config from '../../Config';
 
 class TopMenu extends Component {
 
@@ -25,7 +24,7 @@ class TopMenu extends Component {
                 </NavLink>
               </NavItem>
               {
-                Config.getIn(['MODULE_TOGGLES', 'users'])
+                hasRoute('UsersScreen')
                   ? <NavItem className="px-3">
                       <NavLink
                         to={pathTo('UsersScreen')}

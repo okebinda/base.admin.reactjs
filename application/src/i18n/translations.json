@@ -24,6 +24,18 @@
       "menu_item_list": "List",
       "menu_item_create": "Add New",
 
+      "route_app_dashboard": "Dashboard",
+      "route_app_keys": "App Keys",
+      "route_app_key_add": "Add App Key",
+      "route_app_key_edit": "Edit App Key",
+      "route_terms_of_services": "Terms of Services",
+      "route_terms_of_service_add": "Add Terms of Service",
+      "route_terms_of_service_edit": "Edit Terms of Service",
+      "route_users": "Users",
+      "route_user_account": "User Settings",
+      "route_user_add": "Add User",
+      "route_user_edit": "Edit User",
+
       "dashboard_title": "Dashboard",
 
       "user_account_title": "Account Settings",

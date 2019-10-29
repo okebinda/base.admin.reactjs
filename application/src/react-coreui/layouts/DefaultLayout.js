@@ -12,7 +12,7 @@ import {
   AppSidebarMinimizer,
 } from '@coreui/react';
 
-import {PrivateRoutes, routesForBreadcrumb} from '../Routes';
+import {MainRoutes, routesForBreadcrumb} from '../Routes';
 import Loading from '../elements/components/Loading';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
@@ -50,7 +50,7 @@ class DefaultLayout extends Component {
             <AppBreadcrumb appRoutes={routesForBreadcrumb()}/>
             <Container fluid>
               <Suspense fallback={this.loading()}>
-                <PrivateRoutes />
+                <MainRoutes />
               </Suspense>
             </Container>
           </main>

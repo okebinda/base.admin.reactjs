@@ -24,7 +24,7 @@ import { CustomTooltips } from '@coreui/coreui-plugin-chartjs-custom-tooltips';
 import { getStyle, hexToRgba } from '@coreui/coreui/dist/js/coreui-utilities'
 import {Translation} from 'react-i18next';
 
-import Logger from '../../lib/Logger';
+import Logger from '../../../../lib/Logger';
 
 
 const brandPrimary = getStyle('--primary')
