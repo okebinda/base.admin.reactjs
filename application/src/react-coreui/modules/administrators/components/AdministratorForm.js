@@ -162,14 +162,6 @@ class AdministratorForm extends Component {
                           <FormFeedback>{this.state.email_InputFeedback}</FormFeedback>
                         </FormGroup>
 
-                        <RoleInput
-                          field="roles"
-                          values={this.state.roles}
-                          feedback={this.state.roles_InputFeedback}
-                          onInputChange={this.onInputChange.bind(this)}
-                          type="admin"
-                        />
-
                         <FormGroup>
                           <Label for="first_nameInput">{t('administrator_first_name')}</Label>
                           <Input 
@@ -205,6 +197,14 @@ class AdministratorForm extends Component {
                           />
                           <FormFeedback>{this.state.joined_at_InputFeedback}</FormFeedback>
                         </FormGroup>
+
+                        <RoleInput
+                          field="roles"
+                          values={this.state.roles}
+                          feedback={this.state.roles_InputFeedback}
+                          onInputChange={this.onInputChange.bind(this)}
+                          type="admin"
+                        />
 
                       </CardBody>
                     </Card>

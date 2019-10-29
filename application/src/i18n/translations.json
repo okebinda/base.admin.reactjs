@@ -27,6 +27,9 @@
       "menu_item_app_keys": "App Keys",
 
       "route_app_dashboard": "Dashboard",
+      "route_administrators": "Administrators",
+      "route_administrator_add": "Add Administrator",
+      "route_administrator_edit": "Edit Administrator",
       "route_app_keys": "App Keys",
       "route_app_key_add": "Add App Key",
       "route_app_key_edit": "Edit App Key",
