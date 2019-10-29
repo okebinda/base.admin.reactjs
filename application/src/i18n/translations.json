@@ -16,13 +16,14 @@
       "locations_input_country_title": "Country",
       "locations_input_region_title": "State/Region",
 
-      "menu_item_dashboard": "Dashboard",
+      "menu_item_account_divider": "Account",
       "menu_item_user_account": "Account Settings",
-      "menu_item_users": "Users",
-      "menu_item_app_keys": "App Keys",
       "menu_item_signout": "Sign Out",
       "menu_item_list": "List",
       "menu_item_create": "Add New",
+      "menu_item_dashboard": "Dashboard",
+      "menu_item_users": "Users",
+      "menu_item_app_keys": "App Keys",
 
       "route_app_dashboard": "Dashboard",
       "route_app_keys": "App Keys",

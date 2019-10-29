@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Col, Container, Row} from 'reactstrap';
 import {Translation} from 'react-i18next';
 
-import Logger from '../../lib/Logger';
-import LoginForm from '../forms/containers/LoginFormContainer'
+import Logger from '../../../../lib/Logger';
+import LoginForm from '../containers/LoginFormContainer'
 
 class LoginScreen extends Component {
 

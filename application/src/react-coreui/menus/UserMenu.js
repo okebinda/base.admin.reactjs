@@ -9,7 +9,7 @@ import {
 import {AppHeaderDropdown} from '@coreui/react';
 
 import SignOutDropdownItem from '../elements/containers/SignOutDropdownItemContainer';
-import {pathTo} from '../Routes';
+import {pathTo, hasRoute} from '../Routes';
 import Logger from '../../lib/Logger';
 
 class UserMenu extends Component {
@@ -25,8 +25,12 @@ class UserMenu extends Component {
                   <i className="fa fa-user-circle fa-2x mt-4"></i>
                 </DropdownToggle>
                 <DropdownMenu right>
-                  <DropdownItem header tag="div" className="text-center"><strong>Account</strong></DropdownItem>
-                  <DropdownItem onClick={e => this.props.linkTo(e, pathTo('UserAccountScreen'))}><i className="fa fa-user"></i> Account Settings</DropdownItem>
+                  <DropdownItem header tag="div" className="text-center"><strong>{t('menu_item_account_divider')}</strong></DropdownItem>
+                  {
+                    hasRoute('UserAccountScreen')
+                      ? <DropdownItem onClick={e => this.props.linkTo(e, pathTo('UserAccountScreen'))}><i className="fa fa-user"></i> {t('menu_item_user_account')}</DropdownItem>
+                      : null
+                  }
                   <DropdownItem divider />
                   <SignOutDropdownItem text={t('menu_item_signout')} />
                 </DropdownMenu>

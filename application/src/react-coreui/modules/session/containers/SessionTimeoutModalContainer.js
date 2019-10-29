@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 
-import {createSession, destroySession} from '../../../state/actions';
+import {createSession, destroySession} from '../../../../state/actions';
 import SessionTimeoutModal from '../components/SessionTimeoutModal';
 
 const mapStateToProps = (state, ownProps) => {

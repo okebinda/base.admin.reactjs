@@ -3,7 +3,7 @@ import {withRouter} from 'react-router-dom';
 import {Translation} from 'react-i18next';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
-import Logger from '../../../lib/Logger';
+import Logger from '../../../../lib/Logger';
 
 const SignOutButton = withRouter(({history, text, destroySession, toggle}) => (
   <Button 

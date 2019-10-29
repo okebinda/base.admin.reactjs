@@ -6,7 +6,7 @@ import store from '../state/store';
 import {DefaultRoutes} from './Routes';
 import Logger from '../lib/Logger';
 import Loading from './elements/components/Loading';
-import SessionTimeoutModal from './modals/containers/SessionTimeoutModalContainer';
+import SessionTimeoutModal from './modules/session/containers/SessionTimeoutModalContainer';
 
 import './App.scss';
 

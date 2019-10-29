@@ -14,7 +14,7 @@ const DefaultLayout = React.lazy(() => import('./layouts/DefaultLayout'));
 
 // public screens
 const HomeScreen = React.lazy(() => import('./screens/HomeScreen'));
-const LoginScreen = React.lazy(() => import('./screens/LoginScreen'));
+const LoginScreen = React.lazy(() => import('./modules/session/components/LoginScreen'));
 
 
 // screen name (key): [route type (element), path (prop), exact (prop), component (prop), name]
@@ -37,7 +37,6 @@ let mainRoutes = Map();
 // merge all routes for generating paths
 let routes = defaultRoutes.merge(mainRoutes);
 
-// subscribe to add route events for modules
 Events.subscribe('ADD_MAIN_ROUTES', (data) => {
   mainRoutes = mainRoutes.merge(data);
   routes = defaultRoutes.merge(mainRoutes);

@@ -14,15 +14,19 @@ class TopMenu extends Component {
         {
           (t) =>               
             <Nav className="d-md-down-none" navbar>
-              <NavItem className="px-3">
-                <NavLink
-                  to={pathTo('DashboardScreen')}
-                  activeClassName="active"
-                  tag={RRNavLink}
-                >
-                  {t('menu_item_dashboard')}
-                </NavLink>
-              </NavItem>
+              {
+                hasRoute('DashboardScreen')
+                  ? <NavItem className="px-3">
+                      <NavLink
+                        to={pathTo('DashboardScreen')}
+                        activeClassName="active"
+                        tag={RRNavLink}
+                      >
+                        {t('menu_item_dashboard')}
+                      </NavLink>
+                    </NavItem>
+                  : null
+              }
               {
                 hasRoute('UsersScreen')
                   ? <NavItem className="px-3">

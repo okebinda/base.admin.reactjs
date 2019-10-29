@@ -17,8 +17,8 @@ import {
   Spinner
 } from 'reactstrap';
 
-import Logger from '../../../lib/Logger';
-import {pathTo} from '../../Routes';
+import Logger from '../../../../lib/Logger';
+import {pathTo} from '../../../Routes';
 
 class LoginForm extends Component {
 
