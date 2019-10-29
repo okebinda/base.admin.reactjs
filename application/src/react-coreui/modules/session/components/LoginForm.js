@@ -18,6 +18,7 @@ import {
 } from 'reactstrap';
 
 import Logger from '../../../../lib/Logger';
+import Config from '../../../../Config';
 import {pathTo} from '../../../Routes';
 
 class LoginForm extends Component {
@@ -65,7 +66,7 @@ class LoginForm extends Component {
 
   render() {
     const {isLoading} = this.props;
-    const {from} = this.props.location.state || { from: { pathname: pathTo('DashboardScreen') } }
+    const {from} = this.props.location.state || { from: { pathname: pathTo(Config.get('DEFAULT_LOGIN_REDIRECT')) } }
     const {redirectToReferrer} = this.state
 
     if (redirectToReferrer === true) {

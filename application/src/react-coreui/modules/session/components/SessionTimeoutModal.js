@@ -4,6 +4,7 @@ import {Translation} from 'react-i18next';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 
 import Logger from '../../../../lib/Logger';
+import Config from '../../../../Config';
 
 const SignOutButton = withRouter(({history, text, destroySession, toggle}) => (
   <Button 
@@ -29,7 +30,8 @@ class SessionTimeoutModal extends Component {
     storageType: 'session'
   }
 
-  defaultTimer = 60; // seconds
+  defaultTimer = Config.get('SESSION_TIMEOUT_COUNTDOWN'); // seconds
+  timeoutBuffer = 60; // seconds - to make sure we end session in client gracefully before API does a hard deauth
 
   constructor(props) {
     super(props);
@@ -54,7 +56,7 @@ class SessionTimeoutModal extends Component {
     Logger.log('debug', `SessionTimeoutModal.modalTimer()`);
     if (this.props.authExpires) {
       const now =  Math.round(new Date().getTime()/1000);
-      const showModalMs = (this.props.authExpires - now - 120) * 1000;
+      const showModalMs = (this.props.authExpires - now - this.defaultTimer - this.timeoutBuffer) * 1000;
       if (showModalMs > 0) {
 
         this.timeout = setTimeout(() => {
