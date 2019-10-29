@@ -23,6 +23,7 @@
       "menu_item_create": "Add New",
       "menu_item_dashboard": "Dashboard",
       "menu_item_users": "Users",
+      "menu_item_administrators": "Administrators",
       "menu_item_app_keys": "App Keys",
 
       "route_app_dashboard": "Dashboard",
@@ -70,6 +71,19 @@
       "user_first_name": "First Name",
       "user_last_name": "Last Name",
       "user_joined_at": "Joined At",
+
+      "administrators_title": "Administrators",
+      "administrator_add_title": "Add Administrator",
+      "administrator_edit_title": "Edit Administrator",
+      "administrator_header_account": "Account Info",
+
+      "administrator_username": "Username",
+      "administrator_email": "Email",
+      "administrator_roles": "Roles",
+      "administrator_password_changed_at": "Password Changed At",
+      "administrator_first_name": "First Name",
+      "administrator_last_name": "Last Name",
+      "administrator_joined_at": "Joined At",
 
       "app_keys_title": "App Keys",
       "app_key_add_title": "Add App Key",

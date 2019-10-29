@@ -13,6 +13,7 @@ const Config = Map({
     'dashboard': {'enabled': true, 'routes': true},
     'userAccount': {'enabled': true, 'routes': true},
     'users': {'enabled': true, 'routes': true},
+    'administrators': {'enabled': true, 'routes': true},
     'appKeys': {'enabled': true, 'routes': true},
     'termsOfServices': {'enabled': true, 'routes': true}
   }),

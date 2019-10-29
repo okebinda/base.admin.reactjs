@@ -84,6 +84,28 @@ navigation.items.push(
   }
 );
 
+if (hasRoute('AdministratorsScreen')) {
+  navigation.items.push(
+    {
+      name: i18next.t('menu_item_administrators'),
+      url: pathTo('AdministratorsScreen'),
+      icon: 'icon-people',
+      children: [
+        {
+          name: i18next.t('menu_item_list'),
+          url: pathTo('AdministratorsScreen'),
+          icon: 'icon-list',
+        },
+        {
+          name: i18next.t('menu_item_create'),
+          url: pathTo('AdministratorAddScreen'),
+          icon: 'icon-plus',
+        }
+      ]
+    }
+  );
+}
+
 if (hasRoute('AppKeysScreen')) {
   navigation.items.push(
     {

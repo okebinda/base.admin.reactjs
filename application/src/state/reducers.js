@@ -13,6 +13,7 @@ import {userAccount} from './userAccount/reducers';
 import {locations} from './locations/reducers';
 import {roles} from './roles/reducers';
 import {users} from './users/reducers';
+import {administrators} from './administrators/reducers';
 import {appKeys} from './appKeys/reducers';
 import {termsOfServices} from './termsOfServices/reducers';
 import Auth from '../lib/Auth';
@@ -100,6 +101,7 @@ const rootReducer = combineReducers({
   locations,
   roles,
   users,
+  administrators,
   appKeys,
   termsOfServices,
 });

@@ -216,6 +216,36 @@ class API {
     return await this.DELETE(this._getUri(`/user/${parseInt(id)}`));
   }
 
+  // GET /administrators
+  async getAdministrators(page=1, limit=10) {
+    Logger.log('debug', `API.getAdministrators(${page}, ${limit})`);
+    return await this.GET(this._getUri(`/administrators/${parseInt(page)}/${parseInt(limit)}?order_by=id.desc`));
+  }
+
+  // GET /administrator/{id}
+  async getAdministrator(id) {
+    Logger.log('debug', `API.getAdministrator(${id})`);
+    return await this.GET(this._getUri(`/administrator/${parseInt(id)}`));
+  }
+
+  // POST /administrators
+  async postAdministrators(payload) {
+    Logger.log('debug', `API.postAdministrators(%j)`, payload);
+    return await this.POST(this._getUri(`/administrators`), payload);
+  }
+
+  // PUT /administrator/{id}
+  async putAdministrator(id, payload) {
+    Logger.log('debug', `API.putAdministrator(${id}, %j)`, payload);
+    return await this.PUT(this._getUri(`/administrator/${parseInt(id)}`), payload);
+  }
+
+  // DELETE /administrator/{id}
+  async deleteAdministrator(id) {
+    Logger.log('debug', `API.deleteAdministrator(${id})`);
+    return await this.DELETE(this._getUri(`/administrator/${parseInt(id)}`));
+  }
+
   // GET /app_keys
   async getAppKeys(page=1, limit=10) {
     Logger.log('debug', `API.getAppKeys(${page}, ${limit})`);

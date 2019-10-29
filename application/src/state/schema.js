@@ -9,12 +9,16 @@ const terms_of_service = new s.Entity('terms_of_services');
 const user = new s.Entity('users', {
   roles: [role]
 });
+const administrator = new s.Entity('administrators', {
+  roles: [role]
+});
 const app_key = new s.Entity('app_keys');
 
 const schema = {
   country: country,
   region: region,
   user: user,
+  administrator: administrator,
   role: role,
   app_key: app_key,
   terms_of_service: terms_of_service
