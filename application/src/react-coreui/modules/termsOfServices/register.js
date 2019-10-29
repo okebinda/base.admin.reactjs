@@ -17,9 +17,9 @@ const register = () => {
 
       // screen name (key): [route type (element), path (prop), exact (prop), component (prop)]
       {
-        'TermsOfServiceAddScreen': ['PrivateRoute', '/terms_of_services/add', true, TermsOfServiceAddScreen, i18next.t('route_terms_of_service_add')],
-        'TermsOfServiceEditScreen': ['PrivateRoute', '/terms_of_services/edit/:id(\\d+)', true, TermsOfServiceEditScreen, i18next.t('route_terms_of_service_edit')],
-        'TermsOfServicesScreen': ['PrivateRoute', '/terms_of_services/:page(\\d+)?', true, TermsOfServicesScreen, i18next.t('route_terms_of_services')],
+        'TermsOfServiceAddScreen': ['PrivateRoute', '/terms-of-services/add', true, TermsOfServiceAddScreen, i18next.t('route_terms_of_service_add')],
+        'TermsOfServiceEditScreen': ['PrivateRoute', '/terms-of-services/edit/:id(\\d+)', true, TermsOfServiceEditScreen, i18next.t('route_terms_of_service_edit')],
+        'TermsOfServicesScreen': ['PrivateRoute', '/terms-of-services/:page(\\d+)?', true, TermsOfServicesScreen, i18next.t('route_terms_of_services')],
       }
     );
   }

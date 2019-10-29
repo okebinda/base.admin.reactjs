@@ -66,7 +66,7 @@ export function pathTo(screen, params=null) {
 }
 
 export function routesForBreadcrumb() {
-  return routes.valueSeq().map((x, i) => { return {path: x[1], exact: x[2], name: x[4], component: x[3]}}).toArray();
+  return mainRoutes.valueSeq().map((x, i) => { return {path: x[1], exact: x[2], name: x[4], component: x[3]}}).toArray();
 }
 
 // define app routing

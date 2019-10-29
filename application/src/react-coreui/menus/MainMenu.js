@@ -54,17 +54,17 @@ if (hasRoute('TermsOfServicesScreen')) {
   navigation.items.push(
     {
       name: 'Terms of Services',
-      url: '/terms_of_services',
+      url: pathTo('TermsOfServicesScreen'),
       icon: 'icon-info',
       children: [
         {
           name: 'List',
-          url: '/terms_of_services',
+          url: pathTo('TermsOfServicesScreen'),
           icon: 'icon-list',
         },
         {
           name: 'Add New',
-          url: '/terms_of_services/add',
+          url: pathTo('TermsOfServiceAddScreen'),
           icon: 'icon-plus',
         }
       ]

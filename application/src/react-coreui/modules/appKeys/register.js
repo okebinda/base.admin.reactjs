@@ -17,9 +17,9 @@ const register = () => {
 
       // screen name (key): [route type (element), path (prop), exact (prop), component (prop)]
       {
-        'AppKeyAddScreen': ['PrivateRoute', '/app_keys/add', true, AppKeyAddScreen, i18next.t('route_app_key_add')],
-        'AppKeyEditScreen': ['PrivateRoute', '/app_keys/edit/:id(\\d+)', true, AppKeyEditScreen, i18next.t('route_app_key_edit')],
-        'AppKeysScreen': ['PrivateRoute', '/app_keys/:page(\\d+)?', true, AppKeysScreen, i18next.t('route_app_keys')],
+        'AppKeyAddScreen': ['PrivateRoute', '/app-keys/add', true, AppKeyAddScreen, i18next.t('route_app_key_add')],
+        'AppKeyEditScreen': ['PrivateRoute', '/app-keys/edit/:id(\\d+)', true, AppKeyEditScreen, i18next.t('route_app_key_edit')],
+        'AppKeysScreen': ['PrivateRoute', '/app-keys/:page(\\d+)?', true, AppKeysScreen, i18next.t('route_app_keys')],
       }
     );
   }
