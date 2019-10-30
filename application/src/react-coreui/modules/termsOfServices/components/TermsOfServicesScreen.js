@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Translation} from 'react-i18next';
-import {Row, Col, Button} from 'reactstrap';
-import {Link} from 'react-router-dom';
+import {Row, Col} from 'reactstrap';
 
-import {pathTo} from '../../../Routes';
 import Logger from '../../../../lib/Logger';
 import Config from '../../../../Config';
 import TermsOfServicesList from '../containers/TermsOfServicesListContainer';
@@ -29,21 +27,6 @@ class TermsOfServicesScreen extends Component {
         {
           (t) => 
             <div className="animated fadeIn">
-
-              <Row className="title-bar">
-                <Col>
-                  <h1>{t('terms_of_services_title')}</h1>
-                  <Button
-                    color="primary"
-                    size="sm"
-                    tag={Link}
-                    to={pathTo('TermsOfServiceAddScreen')}
-                  >
-                    {t('action_create')}
-                  </Button>
-                  {this.props.isLoading ? <span className="event-feedback">{t('feedback_loading')}</span> : ''}
-                </Col>
-              </Row>
 
               <Row>
                 <Col>

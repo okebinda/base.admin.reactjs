@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
 import {Translation} from 'react-i18next';
-import {Row, Col, Button} from 'reactstrap';
-import {Link} from 'react-router-dom';
+import {Row, Col} from 'reactstrap';
 
-import {pathTo} from '../../../Routes';
 import Logger from '../../../../lib/Logger';
 import Config from '../../../../Config';
 import UsersList from '../containers/UsersListContainer';
@@ -29,21 +27,6 @@ class UsersScreen extends Component {
         {
           (t) => 
             <div className="animated fadeIn">
-
-              <Row className="title-bar">
-                <Col>
-                  <h1>{t('users_title')}</h1>
-                  <Button
-                    color="primary"
-                    size="sm"
-                    tag={Link}
-                    to={pathTo('UserAddScreen')}
-                  >
-                    {t('action_create')}
-                  </Button>
-                  {this.props.isLoading ? <span className="event-feedback">{t('feedback_loading')}</span> : ''}
-                </Col>
-              </Row>
 
               <Row>
                 <Col>

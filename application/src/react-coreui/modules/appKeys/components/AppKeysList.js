@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Translation} from 'react-i18next';
-import {Card, CardBody, CardHeader, Table} from 'reactstrap';
+import {Button, Card, CardBody, CardHeader, Spinner, Table} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
+import {pathTo} from '../../../Routes';
 import Logger from '../../../../lib/Logger';
 import AppKeyRow from '../components/AppKeyRow'
 import Paginate from '../../../elements/components/Paginate';
@@ -32,6 +34,17 @@ class AppKeysList extends Component {
             <Card>
               <CardHeader>
                 <strong><i className="icon-key pr-1"></i>{t('app_keys_title')}</strong>
+                {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
+                <div class="float-right">
+                  <Button
+                    color="primary"
+                    size="sm"
+                    tag={Link}
+                    to={pathTo('AppKeyAddScreen')}
+                  >
+                    {t('action_create')}
+                  </Button>
+                </div>
               </CardHeader>
               <CardBody>
 

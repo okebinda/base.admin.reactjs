@@ -27,13 +27,6 @@ class LoginsScreen extends Component {
           (t) => 
             <div className="animated fadeIn">
 
-              <Row className="title-bar">
-                <Col>
-                  <h1>{t('logins_title')}</h1>
-                  {this.props.isLoading ? <span className="event-feedback">{t('feedback_loading')}</span> : ''}
-                </Col>
-              </Row>
-
               <Row>
                 <Col>
                   <LoginsList

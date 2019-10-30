@@ -12,7 +12,7 @@ const mapStateToProps = (state, ownProps) => {
 
   return {
     list: result ? result.map(x => state.entities.getIn(['logins', x])).toArray() : [],
-    isLoading: state.roles.get('isLoading')
+    isLoading: state.logins.get('isLoading')
   }
 }
 

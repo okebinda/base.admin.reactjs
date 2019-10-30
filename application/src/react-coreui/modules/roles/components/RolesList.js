@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import {Translation} from 'react-i18next';
-import {Card, CardBody, CardHeader, Table} from 'reactstrap';
+import {Button, Card, CardBody, CardHeader, Spinner, Table} from 'reactstrap';
+import {Link} from 'react-router-dom';
 
+import {pathTo} from '../../../Routes';
 import Logger from '../../../../lib/Logger';
 import RoleRow from '../components/RoleRow'
 import Paginate from '../../../elements/components/Paginate';
@@ -32,6 +34,17 @@ class RolesList extends Component {
             <Card>
               <CardHeader>
                 <strong><i className="icon-shield pr-1"></i>{t('roles_title')}</strong>
+                {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
+                <div class="float-right">
+                  <Button
+                    color="primary"
+                    size="sm"
+                    tag={Link}
+                    to={pathTo('RoleAddScreen')}
+                  >
+                    {t('action_create')}
+                  </Button>
+                </div>
               </CardHeader>
               <CardBody>
 

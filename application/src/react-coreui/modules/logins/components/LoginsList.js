@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Translation} from 'react-i18next';
-import {Card, CardBody, CardHeader, Table} from 'reactstrap';
+import {Card, CardBody, CardHeader, Spinner, Table} from 'reactstrap';
 
 import Logger from '../../../../lib/Logger';
 import LoginRow from '../components/LoginRow'
@@ -22,6 +22,7 @@ class LoginsList extends Component {
             <Card>
               <CardHeader>
                 <strong><i className="icon-lock pr-1"></i>{t('logins_title')}</strong>
+                {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
               </CardHeader>
               <CardBody>
 
