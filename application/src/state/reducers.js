@@ -1,9 +1,11 @@
 import {combineReducers} from 'redux';
-import {Map} from 'immutable';
+import {Map, OrderedMap} from 'immutable';
 
 import {
   ADD_ENTITIES,
   REMOVE_ENTITY,
+  SEND_MESSAGE,
+  REMOVE_MESSAGE,
   SESSION_CREATE_REQUEST,
   SESSION_CREATE_SUCCESS,
   SESSION_CREATE_FAILURE,
@@ -38,6 +40,34 @@ export function entities(
 
     case REMOVE_ENTITY:
       return state.deleteIn([action.payload.entityType, action.payload.id]);
+
+    default:
+      return state;
+  }
+}
+
+export function messages(
+  state=OrderedMap({}),
+  action
+) {
+  Logger.log('debug', `[reducers] messages(%j, %j)`, state, action);
+
+  switch(action.type) {
+
+    case SEND_MESSAGE:
+      const nextKey = state.isEmpty() ? 0 : parseInt(state.keySeq().last()) + 1;
+      return state.set(
+        nextKey,
+        {
+          level: action.level,
+          title: action.title,
+          body: action.body,
+          expires: action.expires
+        }
+      );
+    
+    case REMOVE_MESSAGE:
+        return state.delete(action.key);
 
     default:
       return state;
@@ -98,6 +128,7 @@ export function session(
 const rootReducer = combineReducers({
   session,
   entities,
+  messages,
   userAccount,
   locations,
   roles,

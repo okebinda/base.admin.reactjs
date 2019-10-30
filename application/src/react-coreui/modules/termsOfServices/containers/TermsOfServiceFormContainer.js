@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {List} from 'immutable';
 
 import {loadTermsOfService, updateTermsOfService, createTermsOfService, termsOfServiceFormDestroy} from '../../../../state/termsOfServices/actions';
+import {sendMessage} from '../../../../state/actions';
 import TermsOfServiceForm from '../components/TermsOfServiceForm';
 
 const inputs = List([
@@ -44,6 +45,9 @@ const mapDispatchToProps = dispatch => {
     },
     destroyForm: (formState) => {
       dispatch(termsOfServiceFormDestroy(formState));
+    },
+    sendMessage: (level, title, body, expires) => {
+      dispatch(sendMessage(level, title, body, expires));
     }
   }
 }

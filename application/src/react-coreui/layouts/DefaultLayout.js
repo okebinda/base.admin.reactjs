@@ -14,6 +14,7 @@ import {
 
 import {MainRoutes, routesForBreadcrumb} from '../Routes';
 import Loading from '../elements/components/Loading';
+import Messages from '../elements/containers/MessagesContainer';
 
 const DefaultAside = React.lazy(() => import('./DefaultAside'));
 const DefaultFooter = React.lazy(() => import('./DefaultFooter'));
@@ -31,6 +32,7 @@ class DefaultLayout extends Component {
   render() {
     return (
       <div className="app">
+        <Messages />
         <AppHeader fixed>
           <Suspense  fallback={this.loading()}>
             <DefaultHeader onLogout={e=>this.signOut(e)} linkTo={(e, destination)=>this.linkTo(e, destination)}/>

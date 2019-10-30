@@ -21,6 +21,7 @@ const Config = Map({
   }),
   DEFAULT_LOGIN_REDIRECT: 'DashboardScreen', // routing key for screen to redirect user to after successful authentication
   SESSION_TIMEOUT_COUNTDOWN: 60, // number of seconds to warn user before logging user out authomatically
+  DEFAULT_MESSAGE_TIMEOUT: 6 // number of seconds to show status messages - such as success/failure to update a record
 });
 
 export default Config;

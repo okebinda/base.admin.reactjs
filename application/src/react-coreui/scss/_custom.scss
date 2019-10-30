@@ -1,23 +1,16 @@
 // Here you can add other styles
 
-.title-bar {
-  min-height: 3rem;
-  margin-bottom: .5rem;
-}
-
-.title-bar h1 {
-  display: inline;
-  padding-right: 10px;
-}
-
-.title-bar a.btn {
-  margin-bottom: 1rem;
-}
-
-.title-bar .alert {
-  margin-bottom: 0;
-}
-
 .event-feedback {
   margin-left: 20px;
+}
+
+.messages-container {
+  position: relative;
+  z-index: 9999;
+}
+
+.messages-subcontainer {
+  position: fixed;
+  top: 15px;
+  right: 15px;
 }

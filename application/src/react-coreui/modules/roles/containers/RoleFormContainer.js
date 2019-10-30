@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {List} from 'immutable';
 
 import {loadRole, updateRole, createRole, roleFormDestroy} from '../../../../state/roles/actions';
+import {sendMessage} from '../../../../state/actions';
 import RoleForm from '../components/RoleForm';
 
 const inputs = List([
@@ -51,6 +52,9 @@ const mapDispatchToProps = dispatch => {
     },
     destroyForm: (formState) => {
       dispatch(roleFormDestroy(formState));
+    },
+    sendMessage: (level, title, body, expires) => {
+      dispatch(sendMessage(level, title, body, expires));
     }
   }
 }

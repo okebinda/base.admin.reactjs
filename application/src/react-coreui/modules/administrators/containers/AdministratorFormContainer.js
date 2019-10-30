@@ -7,6 +7,7 @@ import {
   createAdministrator,
   administratorFormDestroy
 } from '../../../../state/administrators/actions';
+import {sendMessage} from '../../../../state/actions';
 import AdministratorForm from '../components/AdministratorForm';
 
 const inputs = List([
@@ -53,6 +54,9 @@ const mapDispatchToProps = dispatch => {
     },
     destroyForm: (formState) => {
       dispatch(administratorFormDestroy(formState));
+    },
+    sendMessage: (level, title, body, expires) => {
+      dispatch(sendMessage(level, title, body, expires));
     }
   }
 }

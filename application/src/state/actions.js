@@ -1,9 +1,12 @@
 import api from './api';
 import Logger from '../lib/Logger';
-import Auth from '../lib/Auth'
+import Auth from '../lib/Auth';
+import Config from '../Config';
 
 export const ADD_ENTITIES = 'ADD_ENTITIES';
 export const REMOVE_ENTITY = 'REMOVE_ENTITY';
+export const SEND_MESSAGE = 'SEND_MESSAGE';
+export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 export const SESSION_CREATE_REQUEST = 'SESSION_CREATE_REQUEST';
 export const SESSION_CREATE_SUCCESS = 'SESSION_CREATE_SUCCESS';
 export const SESSION_CREATE_FAILURE = 'SESSION_CREATE_FAILURE';
@@ -23,6 +26,28 @@ export const removeEntity = (payload) => {
   return {
     type: REMOVE_ENTITY,
     payload: payload
+  }
+};
+
+export const sendMessage = (level, title, body, expires) => {
+  Logger.log('debug', `[actions] sendMessage("${level}", "${title}", "${body}", ${expires})`);
+  if (typeof expires === 'undefined') {
+    expires = Config.get('DEFAULT_MESSAGE_TIMEOUT');
+  }
+  return {
+    type: SEND_MESSAGE,
+    level: level,
+    title: title,
+    body: body,
+    expires: expires
+  }
+};
+
+export const removeMessage = (key) => {
+  Logger.log('debug', `[actions] removeMessage("${key}")`);
+  return {
+    type: REMOVE_MESSAGE,
+    key: key
   }
 };
 

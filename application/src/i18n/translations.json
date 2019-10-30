@@ -140,6 +140,7 @@
       "login_success": "Success",
       "login_attempt_date": "Attempted At",
   
+      "table_record_id": "ID: {{id}}",
       "table_header_id": "ID",
       "table_header_status": "Status",
       "table_header_status_changed_at": "Status Changed At",
@@ -173,8 +174,10 @@
 
       "feedback_loading": "Loading...",
       "feedback_form_submit_in_process": "Submitting",
-      "feedback_form_success": "The form has been successfully submitted.",
-      "feedback_form_error": "There was a problem submitting the form.",
+      "feedback_form_success_title": "Success",
+      "feedback_form_error_title": "Error",
+      "feedback_form_success_body": "The form has been successfully submitted.",
+      "feedback_form_error_body": "There was a problem submitting the form.",
 
       "__test_string": "Test string for unit tests, do not remove."
     }

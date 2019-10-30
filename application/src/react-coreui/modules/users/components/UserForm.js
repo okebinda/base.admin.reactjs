@@ -1,5 +1,6 @@
 import React, {Component, createRef} from 'react';
 import {Redirect} from 'react-router-dom'
+import i18next from 'i18next';
 import {Translation} from 'react-i18next';
 import {
   Button,
@@ -96,6 +97,11 @@ class UserForm extends Component {
       this.props.update(this.props.id, payload, () => {
         this.setState(Object.assign({}, ...Object.keys(this.props.errors).map(k => ({[k + '_InputFeedback']: this.props.errors[k]}))));
         this.scrollToRef(this.formTop);
+        if (this.props.success) {
+          this.props.sendMessage('success', i18next.t('feedback_form_success_title'), i18next.t('feedback_form_success_body'));
+        } else {
+          this.props.sendMessage('danger', i18next.t('feedback_form_error_title'), i18next.t('feedback_form_error_body'));
+        }
       });
 
     // create form
@@ -104,8 +110,10 @@ class UserForm extends Component {
         this.setState(Object.assign({}, ...Object.keys(this.props.errors).map(k => ({[k + '_InputFeedback']: this.props.errors[k]}))));
         if (this.props.success) {
           this.setState({redirectTo: pathTo('UserEditScreen', {id: this.props.created_id})});
+          this.props.sendMessage('success', i18next.t('feedback_form_success_title'), i18next.t('feedback_form_success_body'));
         } else {
           this.scrollToRef(this.formTop);
+          this.props.sendMessage('danger', i18next.t('feedback_form_error_title'), i18next.t('feedback_form_error_body'));
         }
       });
     }
@@ -142,6 +150,8 @@ class UserForm extends Component {
                     <Card>
                       <CardHeader>
                         <strong><i className="icon-user pr-1"></i> {t('user_account_header_account')} </strong>
+                        {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
+                        <div className="float-right">{this.props.id ? t('table_record_id', {'id': this.props.id}) : ''}</div>
                       </CardHeader>
                       <CardBody>
                     

@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {List} from 'immutable';
 
 import {loadAppKey, updateAppKey, createAppKey, appKeyFormDestroy} from '../../../../state/appKeys/actions';
+import {sendMessage} from '../../../../state/actions';
 import AppKeyForm from '../components/AppKeyForm';
 
 const inputs = List([
@@ -43,6 +44,9 @@ const mapDispatchToProps = dispatch => {
     },
     destroyForm: (formState) => {
       dispatch(appKeyFormDestroy(formState));
+    },
+    sendMessage: (level, title, body, expires) => {
+      dispatch(sendMessage(level, title, body, expires));
     }
   }
 }
