@@ -48,7 +48,7 @@ export function termsOfServices(
         },
         total: action.total,
         lastUpdated: action.receivedAt
-      }).setIn(['terms_of_services', action.order, action.limit, action.page], List(action.result));
+      }).setIn(['pages', action.order, action.limit, action.page], List(action.result));
 
     case TERMS_OF_SERVICE_LIST_FAILURE:
       return state.mergeDeep({

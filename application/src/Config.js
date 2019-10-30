@@ -14,6 +14,7 @@ const Config = Map({
     'userAccount': {'enabled': true, 'routes': true},
     'users': {'enabled': true, 'routes': true},
     'administrators': {'enabled': true, 'routes': true},
+    'roles': {'enabled': true, 'routes': true},
     'appKeys': {'enabled': true, 'routes': true},
     'termsOfServices': {'enabled': true, 'routes': true}
   }),

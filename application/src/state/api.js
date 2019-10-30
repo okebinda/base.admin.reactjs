@@ -174,6 +174,30 @@ class API {
     }
   }
 
+  // GET /role/{id}
+  async getRole(id) {
+    Logger.log('debug', `API.getRole(${id})`);
+    return await this.GET(this._getUri(`/role/${parseInt(id)}`));
+  }
+
+  // POST /roles
+  async postRoles(payload) {
+    Logger.log('debug', `API.postRoles(%j)`, payload);
+    return await this.POST(this._getUri(`/roles`), payload);
+  }
+
+  // PUT /role/{id}
+  async putRole(id, payload) {
+    Logger.log('debug', `API.putRole(${id}, %j)`, payload);
+    return await this.PUT(this._getUri(`/role/${parseInt(id)}`), payload);
+  }
+
+  // DELETE /role/{id}
+  async deleteRole(id) {
+    Logger.log('debug', `API.deleteRole(${id})`);
+    return await this.DELETE(this._getUri(`/role/${parseInt(id)}`));
+  }
+
   // GET /countries
   async getCountries(page=1, limit=250) {
     Logger.log('debug', `API.getCountries(${page}, ${limit})`);

@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
   const page = ownProps.page;
   const limit = ownProps.limit;
   const order = ownProps.order;
-  const result = state.appKeys.getIn(['app_keys', order, limit, page]);
+  const result = state.appKeys.getIn(['pages', order, limit, page]);
 
   return {
     list: result ? result.map(x => state.entities.getIn(['app_keys', x])).toArray() : [],

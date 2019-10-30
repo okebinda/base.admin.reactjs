@@ -8,7 +8,7 @@ const mapStateToProps = (state, ownProps) => {
   const page = ownProps.page;
   const limit = ownProps.limit;
   const order = ownProps.order;
-  const result = state.termsOfServices.getIn(['terms_of_services', order, limit, page]);
+  const result = state.termsOfServices.getIn(['pages', order, limit, page]);
 
   return {
     list: result ? result.map(x => state.entities.getIn(['terms_of_services', x])).toArray() : [],

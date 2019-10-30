@@ -106,6 +106,28 @@ if (hasRoute('AdministratorsScreen')) {
   );
 }
 
+if (hasRoute('RolesScreen')) {
+  navigation.items.push(
+    {
+      name: i18next.t('menu_item_roles'),
+      url: pathTo('RolesScreen'),
+      icon: 'icon-shield',
+      children: [
+        {
+          name: i18next.t('menu_item_list'),
+          url: pathTo('RolesScreen'),
+          icon: 'icon-list',
+        },
+        {
+          name: i18next.t('menu_item_create'),
+          url: pathTo('RoleAddScreen'),
+          icon: 'icon-plus',
+        }
+      ]
+    }
+  );
+}
+
 if (hasRoute('AppKeysScreen')) {
   navigation.items.push(
     {

@@ -48,7 +48,7 @@ export function appKeys(
         },
         total: action.total,
         lastUpdated: action.receivedAt
-      }).setIn(['app_keys', action.order, action.limit, action.page], List(action.result));
+      }).setIn(['pages', action.order, action.limit, action.page], List(action.result));
 
     case APP_KEY_LIST_FAILURE:
       return state.mergeDeep({
