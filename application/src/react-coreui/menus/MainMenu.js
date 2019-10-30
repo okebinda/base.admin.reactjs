@@ -150,6 +150,16 @@ if (hasRoute('AppKeysScreen')) {
   );
 }
 
+if (hasRoute('LoginsScreen')) {
+  navigation.items.push(
+    {
+      name: i18next.t('menu_item_logins'),
+      url: pathTo('LoginsScreen'),
+      icon: 'icon-lock'
+    }
+  );
+}
+
 class MainMenu extends Component {
 
   render() {

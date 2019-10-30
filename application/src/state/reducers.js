@@ -16,6 +16,7 @@ import {users} from './users/reducers';
 import {administrators} from './administrators/reducers';
 import {appKeys} from './appKeys/reducers';
 import {termsOfServices} from './termsOfServices/reducers';
+import {logins} from './logins/reducers';
 import Auth from '../lib/Auth';
 import Logger from '../lib/Logger';
 
@@ -104,6 +105,7 @@ const rootReducer = combineReducers({
   administrators,
   appKeys,
   termsOfServices,
+  logins,
 });
 
 export default rootReducer;

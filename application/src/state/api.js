@@ -329,6 +329,12 @@ class API {
     Logger.log('debug', `API.deleteTermsOfService(${id})`);
     return await this.DELETE(this._getUri(`/terms_of_service/${parseInt(id)}`));
   }
+
+  // GET /logins
+  async getLogins(page=1, limit=10) {
+    Logger.log('debug', `API.getLogins(${page}, ${limit})`);
+    return await this.GET(this._getUri(`/logins/${parseInt(page)}/${parseInt(limit)}?order_by=attempt_date.desc`));
+  }
 }
 
 const api = new API(Config, axios);

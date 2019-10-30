@@ -16,7 +16,8 @@ const Config = Map({
     'administrators': {'enabled': true, 'routes': true},
     'roles': {'enabled': true, 'routes': true},
     'appKeys': {'enabled': true, 'routes': true},
-    'termsOfServices': {'enabled': true, 'routes': true}
+    'termsOfServices': {'enabled': true, 'routes': true},
+    'logins': {'enabled': true, 'routes': true}
   }),
   DEFAULT_LOGIN_REDIRECT: 'DashboardScreen', // routing key for screen to redirect user to after successful authentication
   SESSION_TIMEOUT_COUNTDOWN: 60, // number of seconds to warn user before logging user out authomatically

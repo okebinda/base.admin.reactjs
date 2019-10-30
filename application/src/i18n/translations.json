@@ -26,6 +26,7 @@
       "menu_item_administrators": "Administrators",
       "menu_item_roles": "Roles",
       "menu_item_app_keys": "App Keys",
+      "menu_item_logins": "Logins",
 
       "route_app_dashboard": "Dashboard",
       "route_administrators": "Administrators",
@@ -44,6 +45,7 @@
       "route_roles": "Roles",
       "route_role_add": "Add Role",
       "route_role_edit": "Edit Role",
+      "route_logins": "Logins",
 
       "dashboard_title": "Dashboard",
 
@@ -129,6 +131,14 @@
       "role_password_reset_days": "Password Reset Days",
       "role_is_admin_role": "Is Admin Role",
       "role_priority": "Priority",
+
+      "logins_title": "Logins",
+
+      "login_user_id": "User ID",
+      "login_username": "Username",
+      "login_ip_address": "IP Address",
+      "login_success": "Success",
+      "login_attempt_date": "Attempted At",
   
       "table_header_id": "ID",
       "table_header_status": "Status",

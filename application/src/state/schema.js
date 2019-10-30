@@ -13,6 +13,7 @@ const administrator = new s.Entity('administrators', {
   roles: [role]
 });
 const app_key = new s.Entity('app_keys');
+const login = new s.Entity('logins');
 
 const schema = {
   country: country,
@@ -21,7 +22,8 @@ const schema = {
   administrator: administrator,
   role: role,
   app_key: app_key,
-  terms_of_service: terms_of_service
+  terms_of_service: terms_of_service,
+  login: login
 };
 
 export {schema};
