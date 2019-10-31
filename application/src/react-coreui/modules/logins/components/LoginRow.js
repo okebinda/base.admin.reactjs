@@ -4,6 +4,7 @@ import {Translation} from 'react-i18next';
 import BooleanBadge from '../../../elements/components/BooleanBadge';
 import Logger from '../../../../lib/Logger';
 import Format from '../../../../lib/Format';
+import Config from '../../../../Config';
 
 class LoginRow extends Component {
 
@@ -28,7 +29,7 @@ class LoginRow extends Component {
                 <td>{login.username}</td>
                 <td>{login.ip_address}</td>
                 <td><BooleanBadge value={login.success} /></td>
-                <td>{Format.date(login.attempt_date, 'mm/dd/yyyy HH:mm:ss Z')}</td>
+                <td>{Format.date(login.attempt_date, Config.get('DEFAULT_DATETIME_FORMAT'))}</td>
               </tr>
 
             </React.Fragment>

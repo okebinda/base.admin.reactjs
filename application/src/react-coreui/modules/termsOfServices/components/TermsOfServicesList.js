@@ -33,7 +33,7 @@ class TermsOfServicesList extends Component {
           (t) => 
             <Card>
               <CardHeader>
-                <strong><i className="icon-info pr-1"></i>{t('terms_of_services_title')}</strong>
+                <strong><i className="icon-doc pr-1"></i>{t('terms_of_services_title')}</strong>
                 {this.props.isLoading
                   ? <span className="event-feedback">
                       <Spinner color="dark" size="sm" /> {t('feedback_loading')}

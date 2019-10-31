@@ -95,7 +95,6 @@ class UserForm extends Component {
     if (this.props.id) {
       this.props.update(this.props.id, payload, () => {
         this.setState(Object.assign({}, ...Object.keys(this.props.errors).map(k => ({[k + '_InputFeedback']: this.props.errors[k]}))));
-        this.scrollToRef(this.formTop);
         if (this.props.success) {
           this.props.sendMessage('success', i18next.t('feedback_form_success_title'), i18next.t('feedback_form_success_body'));
         } else {
@@ -111,7 +110,6 @@ class UserForm extends Component {
           this.setState({redirectTo: pathTo('UserEditScreen', {id: this.props.created_id})});
           this.props.sendMessage('success', i18next.t('feedback_form_success_title'), i18next.t('feedback_form_success_body'));
         } else {
-          this.scrollToRef(this.formTop);
           this.props.sendMessage('danger', i18next.t('feedback_form_error_title'), i18next.t('feedback_form_error_body'));
         }
       });

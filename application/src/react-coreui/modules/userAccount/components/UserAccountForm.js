@@ -81,9 +81,7 @@ class UserAccountForm extends Component {
     this.props.update(payload, () => {
       this.setState(
         Object.assign({}, ...Object.keys(this.props.errors).map(k => ({[k + '_InputFeedback']: this.props.errors[k].map(x => x + ' ')}))),
-        () => {
-          this.scrollToRef(this.formTop);
-        }
+        () => {}
       );
     });
   }

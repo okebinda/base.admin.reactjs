@@ -55,7 +55,7 @@ if (hasRoute('TermsOfServicesScreen')) {
     {
       name: 'Terms of Services',
       url: pathTo('TermsOfServicesScreen'),
-      icon: 'icon-info',
+      icon: 'icon-doc',
       children: [
         {
           name: 'List',

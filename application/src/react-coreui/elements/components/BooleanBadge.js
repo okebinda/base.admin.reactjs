@@ -16,6 +16,11 @@ class BooleanBadge extends Component {
     2: "danger"
   };
 
+  icons = {
+    1: "icons icon-check",
+    2: "icons icon-close"
+  };
+
   convert = (b) => {
     return b ? 1 : 2;
   }
@@ -24,7 +29,11 @@ class BooleanBadge extends Component {
     return (
       <Translation>
         {
-          (t) => <Badge color={this.colors[this.convert(this.props.value)]}>{t(this.labels[this.convert(this.props.value)])}</Badge>
+          (t) => 
+            <Badge color={this.colors[this.convert(this.props.value)]}>
+              <i className={this.icons[this.convert(this.props.value)]}></i>{' '}
+              {t(this.labels[this.convert(this.props.value)])}
+            </Badge>
         }
       </Translation>
     )
