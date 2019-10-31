@@ -1,7 +1,13 @@
 import {connect} from 'react-redux';
 import {List} from 'immutable';
 
-import {loadRole, updateRole, createRole, roleFormDestroy} from '../../../../state/roles/actions';
+import {
+  loadRole,
+  updateRole,
+  createRole,
+  deleteRole,
+  roleFormDestroy
+} from '../../../../state/roles/actions';
 import {sendMessage} from '../../../../state/actions';
 import RoleForm from '../components/RoleForm';
 
@@ -35,7 +41,9 @@ const mapStateToProps = (state, ownProps) => {
     success: state.roles.getIn(['form', 'success']),
     created_id: state.roles.getIn(['form', 'created_id']),
     data: data,
-    errors: errors
+    errors: errors,
+    created_at: state.entities.getIn(['roles', ownProps.id, 'created_at'], null),
+    updated_at: state.entities.getIn(['roles', ownProps.id, 'updated_at'], null)
   }
 }
 
@@ -49,6 +57,9 @@ const mapDispatchToProps = dispatch => {
     },
     create: (data, cb) => {
       dispatch(createRole(data, cb));
+    },
+    delete: (id, cb) => {
+      dispatch(deleteRole(id, cb))
     },
     destroyForm: (formState) => {
       dispatch(roleFormDestroy(formState));

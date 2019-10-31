@@ -1,7 +1,13 @@
 import {connect} from 'react-redux';
 import {List} from 'immutable';
 
-import {loadAppKey, updateAppKey, createAppKey, appKeyFormDestroy} from '../../../../state/appKeys/actions';
+import {
+  loadAppKey,
+  updateAppKey,
+  createAppKey,
+  deleteAppKey,
+  appKeyFormDestroy
+} from '../../../../state/appKeys/actions';
 import {sendMessage} from '../../../../state/actions';
 import AppKeyForm from '../components/AppKeyForm';
 
@@ -27,7 +33,9 @@ const mapStateToProps = (state, ownProps) => {
     success: state.appKeys.getIn(['form', 'success']),
     created_id: state.appKeys.getIn(['form', 'created_id']),
     data: data,
-    errors: errors
+    errors: errors,
+    created_at: state.entities.getIn(['app_keys', ownProps.id, 'created_at'], null),
+    updated_at: state.entities.getIn(['app_keys', ownProps.id, 'updated_at'], null)
   }
 }
 
@@ -41,6 +49,9 @@ const mapDispatchToProps = dispatch => {
     },
     create: (data, cb) => {
       dispatch(createAppKey(data, cb));
+    },
+    delete: (id, cb) => {
+      dispatch(deleteAppKey(id, cb))
     },
     destroyForm: (formState) => {
       dispatch(appKeyFormDestroy(formState));

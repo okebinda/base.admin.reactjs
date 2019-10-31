@@ -350,6 +350,7 @@ export function deleteAppKey(id, cb=function(){}) {
 
     // call API
     const response = await api.deleteAppKey(id);
+    let success = false;
 
     // delete app key success
     if (204 === response.get('status')) {
@@ -358,6 +359,7 @@ export function deleteAppKey(id, cb=function(){}) {
 
       dispatch(removeEntity({entityType: 'app_keys', id: id}));
       dispatch(appKeyDeleteSuccess(id));
+      success = true;
       
     // get app key failure
     } else {
@@ -366,7 +368,7 @@ export function deleteAppKey(id, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 

@@ -3,7 +3,6 @@ import {Redirect} from 'react-router-dom'
 import i18next from 'i18next';
 import {Translation} from 'react-i18next';
 import {
-  Button,
   Card,
   CardBody,
   CardHeader,
@@ -17,7 +16,7 @@ import {
   Spinner
 } from 'reactstrap';
 
-import StatusInput from '../../../elements/components/StatusInput';
+import FormMetadata from '../../../elements/components/FormMetadata';
 import {pathTo} from '../../../Routes';
 import Logger from '../../../../lib/Logger';
 
@@ -117,8 +116,6 @@ class TermsOfServiceForm extends Component {
   }
 
   render() {
-    const {isLoading, isSubmitting} = this.props;
-
     if (this.state.redirectTo) {
       return <Redirect to={this.state.redirectTo} />;
     }
@@ -187,26 +184,19 @@ class TermsOfServiceForm extends Component {
 
                   <Col md="3">
 
-                    <Card>
-                      <CardBody>
-
-                        <StatusInput
-                          field="status"
-                          value={this.state.status}
-                          feedback={this.state.status_InputFeedback}
-                          onInputChange={this.onInputChange.bind(this)}
-                        />
-
-                        <Button
-                          color="primary"
-                          disabled={isLoading}
-                        >
-                          {isSubmitting ? <span><Spinner color="light" size="sm" /> </span> : null }
-                          {isSubmitting ? t('feedback_form_submit_in_process') : t('form_button_submit') }
-                        </Button>
-
-                      </CardBody>
-                    </Card>
+                    <FormMetadata
+                      id={this.props.id}
+                      status={this.state.status}
+                      created_at={this.props.created_at}
+                      updated_at={this.props.updated_at}
+                      onInputChange={this.onInputChange.bind(this)}
+                      status_InputFeedback={this.state.status_InputFeedback}
+                      sendMessage={this.props.sendMessage.bind(this)}
+                      delete={this.props.delete.bind(this)}
+                      onDeleteRedirectTo={'TermsOfServicesScreen'}
+                      isLoading={this.props.isLoading}
+                      isSubmitting={this.props.isSubmitting}
+                    />
 
                   </Col>
 

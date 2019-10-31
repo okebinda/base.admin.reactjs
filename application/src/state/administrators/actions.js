@@ -394,6 +394,7 @@ export function deleteAdministrator(id, cb=function(){}) {
 
     // call API
     const response = await api.deleteAdministrator(id);
+    let success = false;
 
     // delete administrator success
     if (204 === response.get('status')) {
@@ -402,6 +403,7 @@ export function deleteAdministrator(id, cb=function(){}) {
 
       dispatch(removeEntity({entityType: 'administrators', id: id}));
       dispatch(administratorDeleteSuccess(id));
+      success = true;
       
     // get administrator failure
     } else {
@@ -410,7 +412,7 @@ export function deleteAdministrator(id, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 

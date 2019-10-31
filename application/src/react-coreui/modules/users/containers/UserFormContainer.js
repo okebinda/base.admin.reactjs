@@ -1,7 +1,13 @@
 import {connect} from 'react-redux';
 import {List} from 'immutable';
 
-import {loadUser, updateUser, createUser, userFormDestroy} from '../../../../state/users/actions';
+import {
+  loadUser,
+  updateUser,
+  createUser,
+  deleteUser,
+  userFormDestroy
+} from '../../../../state/users/actions';
 import {sendMessage} from '../../../../state/actions';
 import UserForm from '../components/UserForm';
 
@@ -36,7 +42,9 @@ const mapStateToProps = (state, ownProps) => {
     success: state.users.getIn(['form', 'success']),
     created_id: state.users.getIn(['form', 'created_id']),
     data: data,
-    errors: errors
+    errors: errors,
+    created_at: state.entities.getIn(['users', ownProps.id, 'created_at'], null),
+    updated_at: state.entities.getIn(['users', ownProps.id, 'updated_at'], null)
   }
 }
 
@@ -50,6 +58,9 @@ const mapDispatchToProps = dispatch => {
     },
     create: (data, cb) => {
       dispatch(createUser(data, cb));
+    },
+    delete: (id, cb) => {
+      dispatch(deleteUser(id, cb))
     },
     destroyForm: (formState) => {
       dispatch(userFormDestroy(formState));

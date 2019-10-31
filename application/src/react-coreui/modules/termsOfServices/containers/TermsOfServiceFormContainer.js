@@ -1,7 +1,13 @@
 import {connect} from 'react-redux';
 import {List} from 'immutable';
 
-import {loadTermsOfService, updateTermsOfService, createTermsOfService, termsOfServiceFormDestroy} from '../../../../state/termsOfServices/actions';
+import {
+  loadTermsOfService,
+  updateTermsOfService,
+  createTermsOfService,
+  deleteTermsOfService,
+  termsOfServiceFormDestroy
+} from '../../../../state/termsOfServices/actions';
 import {sendMessage} from '../../../../state/actions';
 import TermsOfServiceForm from '../components/TermsOfServiceForm';
 
@@ -28,7 +34,9 @@ const mapStateToProps = (state, ownProps) => {
     success: state.termsOfServices.getIn(['form', 'success']),
     created_id: state.termsOfServices.getIn(['form', 'created_id']),
     data: data,
-    errors: errors
+    errors: errors,
+    created_at: state.entities.getIn(['terms_of_services', ownProps.id, 'created_at'], null),
+    updated_at: state.entities.getIn(['terms_of_services', ownProps.id, 'updated_at'], null)
   }
 }
 
@@ -42,6 +50,9 @@ const mapDispatchToProps = dispatch => {
     },
     create: (data, cb) => {
       dispatch(createTermsOfService(data, cb));
+    },
+    delete: (id, cb) => {
+      dispatch(deleteTermsOfService(id, cb))
     },
     destroyForm: (formState) => {
       dispatch(termsOfServiceFormDestroy(formState));

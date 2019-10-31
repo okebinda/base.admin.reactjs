@@ -425,6 +425,7 @@ export function deleteUser(id, cb=function(){}) {
 
     // call API
     const response = await api.deleteUser(id);
+    let success = false;
 
     // delete user success
     if (204 === response.get('status')) {
@@ -433,6 +434,7 @@ export function deleteUser(id, cb=function(){}) {
 
       dispatch(removeEntity({entityType: 'users', id: id}));
       dispatch(userDeleteSuccess(id));
+      success = true;
       
     // get user failure
     } else {
@@ -441,7 +443,7 @@ export function deleteUser(id, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 

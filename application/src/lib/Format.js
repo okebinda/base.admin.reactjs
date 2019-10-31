@@ -3,13 +3,14 @@ import formatCurrency from 'format-currency'
 import dateformat from 'dateformat'
 
 import Logger from './Logger';
+import Config from '../Config';
 
 // default formatting options
 const options = {
   number: {fractionDigits: 0},
   currency: {format: '%s%v', symbol: '$'},
   percent: {style: 'percent', fractionDigits: 2},
-  date: {format: 'mm/dd/yyyy'}
+  date: {format: Config.get('DEFAULT_DATE_FORMAT', 'mm/dd/yyyy')}
 };
 
 const _truncateNumbers = function(num, digits) {

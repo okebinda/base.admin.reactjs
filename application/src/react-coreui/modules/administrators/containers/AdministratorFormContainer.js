@@ -5,6 +5,7 @@ import {
   loadAdministrator,
   updateAdministrator,
   createAdministrator,
+  deleteAdministrator,
   administratorFormDestroy
 } from '../../../../state/administrators/actions';
 import {sendMessage} from '../../../../state/actions';
@@ -37,7 +38,9 @@ const mapStateToProps = (state, ownProps) => {
     success: state.administrators.getIn(['form', 'success']),
     created_id: state.administrators.getIn(['form', 'created_id']),
     data: data,
-    errors: errors
+    errors: errors,
+    created_at: state.entities.getIn(['administrators', ownProps.id, 'created_at'], null),
+    updated_at: state.entities.getIn(['administrators', ownProps.id, 'updated_at'], null)
   }
 }
 
@@ -51,6 +54,9 @@ const mapDispatchToProps = dispatch => {
     },
     create: (data, cb) => {
       dispatch(createAdministrator(data, cb));
+    },
+    delete: (id, cb) => {
+      dispatch(deleteAdministrator(id, cb))
     },
     destroyForm: (formState) => {
       dispatch(administratorFormDestroy(formState));

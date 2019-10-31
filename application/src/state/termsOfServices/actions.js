@@ -358,6 +358,7 @@ export function deleteTermsOfService(id, cb=function(){}) {
 
     // call API
     const response = await api.deleteTermsOfService(id);
+    let success = false;
 
     // delete ToS success
     if (204 === response.get('status')) {
@@ -366,6 +367,7 @@ export function deleteTermsOfService(id, cb=function(){}) {
 
       dispatch(removeEntity({entityType: 'terms_of_services', id: id}));
       dispatch(termsOfServiceDeleteSuccess(id));
+      success = true;
       
     // get ToS failure
     } else {
@@ -374,7 +376,7 @@ export function deleteTermsOfService(id, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 

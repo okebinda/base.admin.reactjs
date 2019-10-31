@@ -152,6 +152,7 @@
       "action_delete": "Delete",
       "action_close": "Close",
 
+      "form_metadata_header": "Metadata",
       "form_input_status": "Status",
       "form_input_options_loading": "Loading",
       "form_input_options_choose": "Select one",
@@ -178,6 +179,8 @@
       "feedback_form_error_title": "Error",
       "feedback_form_success_body": "The form has been successfully submitted.",
       "feedback_form_error_body": "There was a problem submitting the form.",
+      "feedback_delete_success_body": "The item has been successfully deleted.",
+      "feedback_delete_error_body": "There was a problem deleting the item.",
 
       "__test_string": "Test string for unit tests, do not remove."
     }

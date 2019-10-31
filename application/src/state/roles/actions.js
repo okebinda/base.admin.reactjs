@@ -403,6 +403,7 @@ export function deleteRole(id, cb=function(){}) {
 
     // call API
     const response = await api.deleteRole(id);
+    let success = false;
 
     // delete role success
     if (204 === response.get('status')) {
@@ -411,6 +412,7 @@ export function deleteRole(id, cb=function(){}) {
 
       dispatch(removeEntity({entityType: 'roles', id: id}));
       dispatch(roleDeleteSuccess(id));
+      success = true;
       
     // get role failure
     } else {
@@ -419,7 +421,7 @@ export function deleteRole(id, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 
