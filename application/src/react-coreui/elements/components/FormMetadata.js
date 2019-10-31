@@ -8,16 +8,13 @@ import {
   CardBody,
   CardHeader,
   Col,
-  Modal,
-  ModalHeader,
-  ModalBody,
-  ModalFooter,
   Row,
   Spinner
 } from 'reactstrap';
 
 import Logger from '../../../lib/Logger';
 import StatusInput from './StatusInput';
+import DeleteModal from './DeleteModal';
 import {pathTo} from '../../Routes';
 import Format from '../../../lib/Format';
 import Config from '../../../Config';
@@ -46,7 +43,8 @@ class FormMetadata extends Component {
         this.setState({redirectTo: pathTo(this.props.onDeleteRedirectTo)});
         this.props.sendMessage('success', i18next.t('feedback_form_success_title'), i18next.t('feedback_delete_success_body'));
       } else {
-        this.props.sendMessage('success', i18next.t('feedback_form_error_title'), i18next.t('feedback_delete_error_body'));
+        this.setState({isDeleting: false});
+        this.props.sendMessage('danger', i18next.t('feedback_form_error_title'), i18next.t('feedback_delete_error_body'));
       }
     });
   }
@@ -121,24 +119,12 @@ class FormMetadata extends Component {
                 </CardBody>
               </Card>
 
-              <Modal isOpen={this.state.deleteModal} toggle={this.toggle}>
-                <ModalHeader toggle={this.toggle}>{t('delete_confirm_modal_header')}</ModalHeader>
-                <ModalBody>{t('delete_confirm_modal_body')}</ModalBody>
-                <ModalFooter>
-                  <Button
-                    color="danger" 
-                    onClick={() => { this.toggle(); this.delete(this.props.id); }}
-                  >
-                    {t('delete_confirm_modal_button_delete')}
-                  </Button>
-                  <Button 
-                    color="secondary"
-                    onClick={this.toggle}
-                  >
-                    {t('delete_confirm_modal_button_cancel')}
-                  </Button>
-                </ModalFooter>
-              </Modal>
+              <DeleteModal
+                id={this.props.id}
+                show={this.state.deleteModal}
+                toggle={this.toggle.bind(this)}
+                delete={this.delete.bind(this)}
+              />
 
             </React.Fragment>
         }

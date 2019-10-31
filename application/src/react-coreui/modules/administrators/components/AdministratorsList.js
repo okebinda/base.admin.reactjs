@@ -42,6 +42,7 @@ class AdministratorsList extends Component {
                     tag={Link}
                     to={pathTo('AdministratorAddScreen')}
                   >
+                    <i className="fa fa-plus"></i>{' '}
                     {t('action_create')}
                   </Button>
                 </div>

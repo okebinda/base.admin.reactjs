@@ -34,7 +34,11 @@ class UsersList extends Component {
             <Card>
               <CardHeader>
                 <strong><i className="icon-people pr-1"></i>{t('users_title')}</strong>
-                {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
+                {this.props.isLoading
+                  ? <span className="event-feedback">
+                      <Spinner color="dark" size="sm" /> {t('feedback_loading')}
+                    </span>
+                  : ''}
                 <div class="float-right">
                   <Button
                     color="primary"
@@ -42,6 +46,7 @@ class UsersList extends Component {
                     tag={Link}
                     to={pathTo('UserAddScreen')}
                   >
+                    <i className="fa fa-plus"></i>{' '}
                     {t('action_create')}
                   </Button>
                 </div>

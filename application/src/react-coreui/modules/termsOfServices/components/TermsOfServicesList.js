@@ -34,7 +34,11 @@ class TermsOfServicesList extends Component {
             <Card>
               <CardHeader>
                 <strong><i className="icon-info pr-1"></i>{t('terms_of_services_title')}</strong>
-                {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
+                {this.props.isLoading
+                  ? <span className="event-feedback">
+                      <Spinner color="dark" size="sm" /> {t('feedback_loading')}
+                    </span>
+                  : ''}
                 <div class="float-right">
                   <Button
                     color="primary"
@@ -42,6 +46,7 @@ class TermsOfServicesList extends Component {
                     tag={Link}
                     to={pathTo('TermsOfServiceAddScreen')}
                   >
+                    <i className="fa fa-plus"></i>{' '}
                     {t('action_create')}
                   </Button>
                 </div>

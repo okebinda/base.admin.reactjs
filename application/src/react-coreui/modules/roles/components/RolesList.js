@@ -42,6 +42,7 @@ class RolesList extends Component {
                     tag={Link}
                     to={pathTo('RoleAddScreen')}
                   >
+                    <i className="fa fa-plus"></i>{' '}
                     {t('action_create')}
                   </Button>
                 </div>
