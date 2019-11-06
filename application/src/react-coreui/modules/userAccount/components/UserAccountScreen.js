@@ -22,15 +22,6 @@ class UserAccountScreen extends Component {
           (t) => 
             <div className="animated fadeIn">
 
-              <Row className="title-bar">
-                <Col>
-                  <h1>{t('user_account_title')}</h1>
-                  {this.props.isLoading ? <span className="event-feedback">{t('feedback_loading')}</span> : ''}
-                  <br />
-                  <br />
-                </Col>
-              </Row>
-
               <Row>
                 <Col sm="12" md="6">
                   <UserAccountForm />

@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {List} from 'immutable';
 
 import {loadUserAccount, updateUserAccount, userAccountFormDestroy} from '../../../../state/userAccount/actions';
+import {sendMessage} from '../../../../state/actions';
 import UserAccountForm from '../components/UserAccountForm';
 
 const inputs = List([
@@ -39,6 +40,9 @@ const mapDispatchToProps = dispatch => {
     },
     destroyForm: (formState) => {
       dispatch(userAccountFormDestroy(formState));
+    },
+    sendMessage: (level, title, body, expires) => {
+      dispatch(sendMessage(level, title, body, expires));
     }
   }
 }

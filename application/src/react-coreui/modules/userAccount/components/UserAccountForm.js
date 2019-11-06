@@ -1,7 +1,7 @@
 import React, {Component, createRef} from 'react';
+import i18next from 'i18next';
 import {Translation} from 'react-i18next';
 import {
-  Alert,
   Button,
   Card,
   CardBody,
@@ -80,10 +80,23 @@ class UserAccountForm extends Component {
     // update
     this.props.update(payload, () => {
       this.setState(
-        Object.assign({}, ...Object.keys(this.props.errors).map(k => ({[k + '_InputFeedback']: this.props.errors[k].map(x => x + ' ')}))),
+        this.setState(this.parseFeedback(this.props.errors)),
         () => {}
       );
+      if (this.props.success) {
+        this.props.sendMessage('success', i18next.t('feedback_form_success_title'), i18next.t('feedback_form_success_body'));
+      } else {
+        this.props.sendMessage('danger', i18next.t('feedback_form_error_title'), i18next.t('feedback_form_error_body'));
+      }
     });
+  }
+
+  parseFeedback = (errors, joinChar=' ') => {
+    const out = {};
+    for (const field in errors) {
+      out[field + '_InputFeedback'] = errors[field].join(joinChar);
+    }
+    return out;
   }
 
   // form submit handler
@@ -105,24 +118,12 @@ class UserAccountForm extends Component {
           (t) => 
             <div className="user-account-form" ref={this.formTop}>
 
-              <div className="flash-message row justify-content-sm-center">
-                <div className="col-sm-auto">
-                  {true === this.props.success
-                    ? <Alert color="success">{t('feedback_form_success')}</Alert>
-                    : null
-                  }
-                  {false === this.props.success
-                    ? <Alert color="danger">{t('feedback_form_error')}</Alert>
-                    : null
-                  }
-                </div>
-              </div>
-
               <Form onSubmit={this.handleSubmit}>
 
                 <Card>
                   <CardHeader>
                     <strong><i className="icon-user pr-1"></i> {t('user_account_header_account')} </strong>
+                    {this.props.isLoading ? <span className="event-feedback"><Spinner color="dark" size="sm" /> {t('feedback_loading')}</span> : ''}
                   </CardHeader>
                   <CardBody>
 

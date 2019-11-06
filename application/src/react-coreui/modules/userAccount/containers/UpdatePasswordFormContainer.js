@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 import {List} from 'immutable';
 
 import {updatePassword, passwordFormDestroy} from '../../../../state/userAccount/actions';
+import {sendMessage} from '../../../../state/actions';
 import UpdatePasswordForm from '../components/UpdatePasswordForm';
 
 const inputs = List([
@@ -35,6 +36,9 @@ const mapDispatchToProps = dispatch => {
     },
     destroyForm: (formState) => {
       dispatch(passwordFormDestroy(formState));
+    },
+    sendMessage: (level, title, body, expires) => {
+      dispatch(sendMessage(level, title, body, expires));
     }
   }
 }

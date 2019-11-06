@@ -35,6 +35,7 @@ class RoleInput extends Component {
                     id={this.props.field + "_" + i.value}
                     value={i.value}
                     label={i.label}
+                    invalid={this.props.feedback ? true : false}
                     checked={this.props.values ? this.props.values.includes(parseInt(i.value)) : false}
                     onChange={this.onChange}
                   />)}

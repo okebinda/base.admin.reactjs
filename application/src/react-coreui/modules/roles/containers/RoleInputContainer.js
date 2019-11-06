@@ -5,8 +5,6 @@ import RoleInput from '../components/RoleInput';
 
 const mapStateToProps = (state, ownProps) => {
 
-  console.log("TESTING", ownProps);
-
   const rolesToProps = [];
   const rolesFromState = state.entities.get('roles');
   if (rolesFromState) {
