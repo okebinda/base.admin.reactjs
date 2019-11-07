@@ -158,7 +158,7 @@ class UpdatePasswordForm extends Component {
                         onChange={(e) => this.onInputChange('password1', e.target.value)}
                         id="password1Input"
                       />
-                      <FormFeedback>{this.state.password2_InputFeedback}</FormFeedback>
+                      <FormFeedback>{this.state.password1_InputFeedback}</FormFeedback>
                     </FormGroup>
 
                     <FormGroup>

@@ -33,6 +33,7 @@ class LoginsList extends Component {
                       <th>{t('login_user_id')}</th>
                       <th>{t('login_username')}</th>
                       <th>{t('login_ip_address')}</th>
+                      <th>{t('login_api')}</th>
                       <th>{t('login_success')}</th>
                       <th>{t('login_attempt_date')}</th>
                     </tr>

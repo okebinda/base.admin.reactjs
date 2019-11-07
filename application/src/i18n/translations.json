@@ -137,8 +137,12 @@
       "login_user_id": "User ID",
       "login_username": "Username",
       "login_ip_address": "IP Address",
+      "login_api": "API",
       "login_success": "Success",
       "login_attempt_date": "Attempted At",
+
+      "login_api_admin": "Admin",
+      "login_api_public": "Public",
   
       "table_record_id": "ID: {{id}}",
       "table_header_id": "ID",
