@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "description": "Base Admin Console for a REST API",
   "author": "Kevin Chevalier",
-  "homepage": "https://github.com/okebinda/base.admin.reactjs",
   "copyright": "Copyright 2019 Kevin Chevalier",
   "license": "Apache-2.0",
   "repository": {
