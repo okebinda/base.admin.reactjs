@@ -7,7 +7,7 @@ import {BrowserRouter as Router} from 'react-router-dom'
 import * as serviceWorker from './serviceWorker';
 
 import './lib/Localization';
-import App from './react-coreui/App';
+import App from './ui/react-coreui/App';
 
 ReactDOM.render(
   <Router>

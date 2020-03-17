@@ -7,6 +7,7 @@
       "login_form_username": "Username",
       "login_form_password": "Password",
       "login_form_submit": "Log in",
+      "login_form_failure": "Could not log in.",
 
       "session_timeout_modal_title": "Session Timeout Warning",
       "session_timeout_modal_body": "Your session will automatically timeout in {{countdown}} seconds.",
