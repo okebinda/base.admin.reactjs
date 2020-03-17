@@ -167,6 +167,7 @@ class UserForm extends Component {
                             onChange={(e) => this.onInputChange('username', e.target.value.trim())}
                             id="usernameInput"
                             autoFocus
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.username_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -179,6 +180,7 @@ class UserForm extends Component {
                             invalid={this.state.email_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('email', e.target.value.toLowerCase().trim())}
                             id="emailInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.email_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -189,6 +191,7 @@ class UserForm extends Component {
                           feedback={this.state.roles_InputFeedback}
                           onInputChange={this.onInputChange.bind(this)}
                           type="user"
+                          disabled={this.props.isLoading}
                         />
 
                         <FormGroup check>
@@ -199,6 +202,7 @@ class UserForm extends Component {
                             invalid={this.state.is_verified_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('is_verified', !this.state.is_verified)}
                             id="is_verifiedInput"
+                            disabled={this.props.isLoading}
                           />
                           <Label check for="is_verifiedInput">{t('user_is_verified')}</Label>
                           <FormFeedback>{this.state.is_verified_InputFeedback}</FormFeedback>
@@ -221,6 +225,7 @@ class UserForm extends Component {
                             invalid={this.state.first_name_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('first_name', e.target.value.replace(/\s+/g, ' '))}
                             id="first_nameInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.first_name_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -233,6 +238,7 @@ class UserForm extends Component {
                             invalid={this.state.last_name_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('last_name', e.target.value.replace(/\s+/g, ' '))}
                             id="last_nameInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.last_name_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -245,6 +251,7 @@ class UserForm extends Component {
                             invalid={this.state.joined_at_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('joined_at', e.target.value)}
                             id="joined_atInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.joined_at_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -266,6 +273,7 @@ class UserForm extends Component {
                             invalid={this.state.password_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('password', e.target.value)}
                             id="passwordInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.password_InputFeedback}</FormFeedback>
                           <FormText color="muted">{t('user_account_form_hint_password')}</FormText>

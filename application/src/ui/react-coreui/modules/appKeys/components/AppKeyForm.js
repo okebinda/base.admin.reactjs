@@ -155,6 +155,7 @@ class AppKeyForm extends Component {
                             onChange={(e) => this.onInputChange('application', e.target.value)}
                             id="applicationInput"
                             autoFocus
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.application_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -167,6 +168,7 @@ class AppKeyForm extends Component {
                             invalid={this.state.key_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('key', e.target.value)}
                             id="keyInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.key_InputFeedback}</FormFeedback>
                         </FormGroup>

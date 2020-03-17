@@ -162,6 +162,7 @@ class RoleForm extends Component {
                             onChange={(e) => this.onInputChange('name', e.target.value)}
                             id="nameInput"
                             autoFocus
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.name_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -174,6 +175,7 @@ class RoleForm extends Component {
                             invalid={this.state.priority_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('priority', e.target.value)}
                             id="priorityInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.priority_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -186,6 +188,7 @@ class RoleForm extends Component {
                             invalid={this.state.is_admin_role_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('is_admin_role', !this.state.is_admin_role)}
                             id="is_admin_roleInput"
+                            disabled={this.props.isLoading}
                           />
                           <Label check for="is_admin_roleInput">{t('role_is_admin_role')}</Label>
                           <FormFeedback>{this.state.is_admin_role_InputFeedback}</FormFeedback>
@@ -208,6 +211,7 @@ class RoleForm extends Component {
                             invalid={this.state.login_lockout_policy_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('login_lockout_policy', !this.state.login_lockout_policy)}
                             id="login_lockout_policyInput"
+                            disabled={this.props.isLoading}
                           />
                           <Label check for="login_lockout_policyInput">{t('role_login_lockout_policy')}</Label>
                           <FormFeedback>{this.state.login_lockout_policy_InputFeedback}</FormFeedback>
@@ -223,6 +227,7 @@ class RoleForm extends Component {
                             invalid={this.state.login_max_attempts_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('login_max_attempts', e.target.value)}
                             id="login_max_attemptsInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.login_max_attempts_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -235,6 +240,7 @@ class RoleForm extends Component {
                             invalid={this.state.login_timeframe_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('login_timeframe', e.target.value)}
                             id="login_timeframeInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.login_timeframe_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -247,6 +253,7 @@ class RoleForm extends Component {
                             invalid={this.state.login_ban_time_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('login_ban_time', e.target.value)}
                             id="login_ban_timeInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.login_ban_time_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -259,6 +266,7 @@ class RoleForm extends Component {
                             invalid={this.state.login_ban_by_ip_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('login_ban_by_ip', !this.state.login_ban_by_ip)}
                             id="login_ban_by_ipInput"
+                            disabled={this.props.isLoading}
                           />
                           <Label check for="login_ban_by_ipInput">{t('role_login_ban_by_ip')}</Label>
                           <FormFeedback>{this.state.login_ban_by_ip_InputFeedback}</FormFeedback>
@@ -281,6 +289,7 @@ class RoleForm extends Component {
                             invalid={this.state.password_policy_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('password_policy', !this.state.password_policy)}
                             id="password_policyInput"
+                            disabled={this.props.isLoading}
                           />
                           <Label check for="password_policyInput">{t('role_password_policy')}</Label>
                           <FormFeedback>{this.state.password_policy_InputFeedback}</FormFeedback>
@@ -296,6 +305,7 @@ class RoleForm extends Component {
                             invalid={this.state.password_reuse_history_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('password_reuse_history', e.target.value)}
                             id="password_reuse_historyInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.password_reuse_history_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -308,6 +318,7 @@ class RoleForm extends Component {
                             invalid={this.state.password_reset_days_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('password_reset_days', e.target.value)}
                             id="password_reset_daysInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.password_reset_days_InputFeedback}</FormFeedback>
                         </FormGroup>

@@ -80,6 +80,7 @@ class FormMetadata extends Component {
                     value={this.props.status}
                     feedback={this.props.status_InputFeedback}
                     onInputChange={this.props.onInputChange.bind(this)}
+                    isLoading={this.props.isLoading}
                   />
 
                   <Row>

@@ -136,6 +136,7 @@ class UserAccountForm extends Component {
                         onChange={(e) => this.onInputChange('username', e.target.value.toLowerCase().replace(/[^a-z0-9_]/g, ''))}
                         id="usernameInput"
                         autoFocus
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.username_InputFeedback}</FormFeedback>
                     </FormGroup>
@@ -148,6 +149,7 @@ class UserAccountForm extends Component {
                         invalid={this.state.email_InputFeedback ? true : false}
                         onChange={(e) => this.onInputChange('email', e.target.value.toLowerCase().trim())}
                         id="emailInput"
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.email_InputFeedback}</FormFeedback>
                     </FormGroup>
@@ -160,6 +162,7 @@ class UserAccountForm extends Component {
                         invalid={this.state.first_name_InputFeedback ? true : false}
                         onChange={(e) => this.onInputChange('first_name', e.target.value)}
                         id="first_nameInput"
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.first_name_InputFeedback}</FormFeedback>
                     </FormGroup>
@@ -172,6 +175,7 @@ class UserAccountForm extends Component {
                         invalid={this.state.last_name_InputFeedback ? true : false}
                         onChange={(e) => this.onInputChange('last_name', e.target.value)}
                         id="last_nameInput"
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.last_name_InputFeedback}</FormFeedback>
                     </FormGroup>

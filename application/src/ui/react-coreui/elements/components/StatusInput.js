@@ -27,6 +27,7 @@ class StatusInput extends Component {
                 invalid={this.props.feedback ? true : false}
                 onChange={(e) => this.props.onInputChange(this.props.field, e.target.value)}
                 id={this.props.field + "Input"}
+                disabled={this.props.isLoading}
               >
                 {Object.keys(this.statuses).map((key, index) =>
                   <option key={key} value={key}>{t(this.statuses[key])}</option>

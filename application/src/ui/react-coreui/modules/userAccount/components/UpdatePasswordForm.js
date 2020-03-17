@@ -142,6 +142,7 @@ class UpdatePasswordForm extends Component {
                         invalid={this.state.previous_password_InputFeedback ? true : false}
                         onChange={(e) => this.onInputChange('previous_password', e.target.value)}
                         id="previous_passwordInput"
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.previous_password_InputFeedback}</FormFeedback>
                     </FormGroup>
@@ -157,6 +158,7 @@ class UpdatePasswordForm extends Component {
                         invalid={this.state.password1_InputFeedback ? true : false}
                         onChange={(e) => this.onInputChange('password1', e.target.value)}
                         id="password1Input"
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.password1_InputFeedback}</FormFeedback>
                     </FormGroup>
@@ -169,6 +171,7 @@ class UpdatePasswordForm extends Component {
                         invalid={this.state.password2_InputFeedback ? true : false}
                         onChange={(e) => this.onInputChange('password2', e.target.value)}
                         id="password2Input"
+                        disabled={isLoading}
                       />
                       <FormFeedback>{this.state.password2_InputFeedback}</FormFeedback>
                     </FormGroup>

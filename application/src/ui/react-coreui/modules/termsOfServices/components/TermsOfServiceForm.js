@@ -155,6 +155,7 @@ class TermsOfServiceForm extends Component {
                             onChange={(e) => this.onInputChange('text', e.target.value)}
                             id="textInput"
                             autoFocus
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.text_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -167,6 +168,7 @@ class TermsOfServiceForm extends Component {
                             invalid={this.state.version_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('version', e.target.value)}
                             id="versionInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.version_InputFeedback}</FormFeedback>
                         </FormGroup>
@@ -179,6 +181,7 @@ class TermsOfServiceForm extends Component {
                             invalid={this.state.publish_date_InputFeedback ? true : false}
                             onChange={(e) => this.onInputChange('publish_date', e.target.value)}
                             id="publish_dateInput"
+                            disabled={this.props.isLoading}
                           />
                           <FormFeedback>{this.state.publish_date_InputFeedback}</FormFeedback>
                         </FormGroup>
