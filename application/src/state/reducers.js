@@ -36,7 +36,7 @@ export function entities(
       for (var key in action.payload.entities) {
         tempState[key] = {...state.get(key, {}), ...action.payload.entities[key]};
       }
-      return state.merge(tempState);
+      return state.mergeDeep(tempState);
 
     case REMOVE_ENTITY:
       return state.deleteIn([action.payload.entityType, action.payload.id]);

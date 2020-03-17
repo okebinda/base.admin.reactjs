@@ -9,14 +9,14 @@ const mapStateToProps = (state, ownProps) => {
   const rolesFromState = state.entities.get('roles');
   if (rolesFromState) {
     for (const roleId in rolesFromState) {
-      // if (('user' === ownProps.type && !rolesFromState[roleId].is_admin_role)
-      //     || ('admin' === ownProps.type && rolesFromState[roleId].is_admin_role))
-      // {
+      if (('user' === ownProps.type && !rolesFromState[roleId].is_admin_role)
+          || ('admin' === ownProps.type && rolesFromState[roleId].is_admin_role))
+      {
         rolesToProps.push({
           value: roleId,
           label: rolesFromState[roleId].name
         });
-      // }
+      }
     }
   }
   
