@@ -19,8 +19,10 @@ import {administrators} from './administrators/reducers';
 import {appKeys} from './appKeys/reducers';
 import {termsOfServices} from './termsOfServices/reducers';
 import {logins} from './logins/reducers';
+import extend from '../lib/Extend';
 import Auth from '../lib/Auth';
 import Logger from '../lib/Logger';
+
 
 export function entities(
   state=Map({}),
@@ -36,7 +38,8 @@ export function entities(
       for (var key in action.payload.entities) {
         tempState[key] = {...state.get(key, {}), ...action.payload.entities[key]};
       }
-      return state.mergeDeep(tempState);
+      // return state.merge(tempState);
+      return Map(extend(true, state.toJS(), tempState));
 
     case REMOVE_ENTITY:
       return state.deleteIn([action.payload.entityType, action.payload.id]);
