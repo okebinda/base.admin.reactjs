@@ -4,7 +4,7 @@ import {MenuOutlined, MenuFoldOutlined, MenuUnfoldOutlined} from '@ant-design/ic
 import {Translation} from 'react-i18next';
 
 import {MainRoutes} from '../../Routes';
-import MainMenu from '../../menus/components/MainMenu';
+import MainMenu from '../../menus/containers/MainMenuContainer';
 import DrawerMenu from '../../menus/containers/DrawerMenuContainer';
 import UserMenu from '../../menus/containers/UserMenuContainer';
 import Loading from '../../elements/components/Loading';

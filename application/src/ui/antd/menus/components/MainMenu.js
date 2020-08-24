@@ -2,6 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {Menu} from 'antd';
 import {
+  CrownOutlined,
   DashboardOutlined,
   IdcardOutlined,
   KeyOutlined,
@@ -39,7 +40,7 @@ function MainMenu(props) {
       'key': 'administrator-list',
       'screen': 'AdministratorsScreen',
       'title': 'administrators_menu_item_list',
-      'icon': <UserOutlined />
+      'icon': <CrownOutlined />
     },
     {
       'key': 'role-list',
@@ -85,7 +86,7 @@ function MainMenu(props) {
             : null
           )}
 
-        <Menu.ItemGroup key="public-menu" title={t('menu_group_public')}>
+        <Menu.ItemGroup key="public-menu" title={props.isMenuCollapsed ? null : t('menu_group_public')}>
           {publicRoutes.map(
             x => hasRoute(x.screen)
               ? <Menu.Item key={x.key}>
@@ -98,7 +99,7 @@ function MainMenu(props) {
             )}
         </Menu.ItemGroup>
 
-        <Menu.ItemGroup key="admin-menu" title={t('menu_group_admin')}>
+        <Menu.ItemGroup key="admin-menu" title={props.isMenuCollapsed ? null : t('menu_group_admin')}>
           {adminRoutes.map(
             x => hasRoute(x.screen)
               ? <Menu.Item key={x.key}>
