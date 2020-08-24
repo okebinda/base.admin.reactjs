@@ -10,6 +10,11 @@ class Auth {
     this.storage = storage;
   }
 
+  setStorageType(storageType) {
+    Logger.log('debug', `Auth.setStorageType(${storageType})`);
+    this.storageType = storageType;
+  }
+
   saveSession(authToken, authExpiration, authExpires, userId, username) {
     Logger.log('info', `Authentication success. User: ${userId}`);
     this.storage.set(this.storageType, 'authToken', authToken);
@@ -38,9 +43,23 @@ class Auth {
     this.storage.remove(this.storageType, 'authExpiration');
     this.storage.remove(this.storageType, 'authExpires');
   }
+
+  isAuthTokenValid(authToken, authExpires) {
+    Logger.log('debug', `Auth.isAuthTokenValid(###, ###)`);
+    return authToken && authExpires && parseInt(authExpires) - 60 > Math.round(new Date().getTime()/1000);
+  }
 }
 
-const auth = new Auth(Config.get('AUTH_STORAGE'));
+function findStorageType() {
+  if (storage.get('session', 'authToken')) {
+    return 'session';
+  } else if (storage.get('local', 'authToken')) {
+    return 'local';
+  }
+  return Config.get('DEFAULT_AUTH_STORAGE');
+}
+
+const auth = new Auth(findStorageType());
 export default auth;
 
 Logger.log('silly', `Auth loaded.`);

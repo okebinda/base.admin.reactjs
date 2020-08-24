@@ -1,0 +1,39 @@
+html, body, #root, #App {
+	height: 100%;
+}
+
+.ant-card {
+  margin-bottom: 15px;
+}
+
+.ant-card-head-title .ant-btn {
+  margin-left: 10px;
+}
+
+.form-actions .ant-btn {
+  margin: 0 10px 10px 0;
+}
+
+
+// screen transitions
+
+// .screen-fade-enter {
+//   opacity: 0;
+//   height: 0;
+// }
+
+// .screen-fade-enter-active {
+//   opacity: 1;
+//   transition: opacity 250ms;
+//   transition-delay: 150ms;
+// }
+
+// .screen-fade-exit {
+//   opacity: 1;
+// }
+
+// .screen-fade-exit-active {
+//   opacity: 0;
+//   transform: translateY(10px);
+//   transition: opacity 150ms, transform 150ms;
+// }

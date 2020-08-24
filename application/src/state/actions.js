@@ -1,5 +1,6 @@
 import api from './api';
 import Logger from '../lib/Logger';
+import Events from '../lib/EventEmitter';
 import Auth from '../lib/Auth';
 import Config from '../Config';
 
@@ -10,8 +11,9 @@ export const REMOVE_MESSAGE = 'REMOVE_MESSAGE';
 export const SESSION_CREATE_REQUEST = 'SESSION_CREATE_REQUEST';
 export const SESSION_CREATE_SUCCESS = 'SESSION_CREATE_SUCCESS';
 export const SESSION_CREATE_FAILURE = 'SESSION_CREATE_FAILURE';
+export const SESSION_FORM_DESTROY = 'SESSION_FORM_DESTROY';
 export const SESSION_DESTROY = 'SESSION_DESTROY';
-
+export const SESSION_HYDRATE = 'SESSION_HYDRATE';
 
 export const addEntities = (entities) => {
   Logger.log('debug', `[actions] addEntities(%j)`, entities);
@@ -82,6 +84,27 @@ export function sessionCreateFailure(error) {
   }
 }
 
+export function sessionFormDestroy(formState=null) {
+  Logger.log('debug', `[state.actions] sessionFormDestroy(###)`, formState);
+  return {
+    type: SESSION_FORM_DESTROY,
+    form: formState
+  }
+}
+
+export function sessionHydrate(data) {
+  Logger.log('debug', `[state.actions] sessionHydrate()`);
+  Events.dispatch('SESSION_HYDRATE');
+  return {
+    type: SESSION_HYDRATE,
+    authToken: data.authToken,
+    authExpiration: data.authExpiration,
+    authExpires: data.authExpires,
+    userId: data.userId,
+    username: data.username
+  }
+}
+
 export function sessionDestroy() {
   Logger.log('debug', `[actions] sessionDestroy()`);
   Auth.deleteSession();
@@ -102,11 +125,13 @@ export function createSession(data, cb=function(){}) {
 
     // call API
     const response = await api.getToken(data.username, data.password);
+    let success = false;
 
     // get token success
     if (200 === response.get('status')) {
 
       Logger.log('info', `GET API token success. User: ${response.getIn(['data', 'user_id'])}`);
+      success = true;
 
       const sessionSuccessData = {
         authToken: response.getIn(['data', 'token']),
@@ -125,7 +150,7 @@ export function createSession(data, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 

@@ -1,6 +1,6 @@
-import formatNum from 'format-num'
-import formatCurrency from 'format-currency'
-import dateformat from 'dateformat'
+import formatNum from 'format-num';
+import formatCurrency from 'format-currency';
+import moment from 'moment';
 
 import Logger from './Logger';
 import Config from '../Config';
@@ -31,11 +31,13 @@ const _truncateNumbers = function(num, digits) {
   return (num / si[i].value).toFixed(digits).replace(rx, "$1") + si[i].symbol;
 }
 
+const reISO8601 = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}[+-]\d{4}$/;
+
 const Format = {
 
   // format number
   number: function(value, fractionDigits, truncate=false) {
-    Logger.log('debug', `Format.number(${value}, ${fractionDigits})`);
+    Logger.log('silly', `Format.number(${value}, ${fractionDigits})`);
     const opts = {
       maximumFractionDigits: Number.isInteger(fractionDigits)
         ? fractionDigits
@@ -49,13 +51,13 @@ const Format = {
 
   // format currency
   currency: function(value, truncate=false) {
-    Logger.log('debug', `Format.currency(${value})`);
+    Logger.log('silly', `Format.currency(${value})`);
     return truncate ? options.currency.symbol + _truncateNumbers(value, 1) : formatCurrency(value, options.currency);
   },
 
   // format percent
   percent: function(value, fractionDigits) {
-    Logger.log('debug', `Format.percent(${value}, ${fractionDigits})`);
+    Logger.log('silly', `Format.percent(${value}, ${fractionDigits})`);
     const opts = {
       style: options.percent.style,
       maximumFractionDigits: Number.isInteger(fractionDigits)
@@ -69,10 +71,15 @@ const Format = {
   },
 
   // formate date
-  date: function(value, formatIn) {
-    Logger.log('debug', `Format.date(${value}, ${formatIn})`);
-    const format = formatIn ? formatIn : options.date.format;
-    return value ? dateformat(value, format, true) : null;
+  date: function(value, formatIn, utc=false) {
+    Logger.log('silly', `Format.date(${value}, ${formatIn})`);
+    if (value) {
+      const format = formatIn ? formatIn : options.date.format;
+      return typeof value === 'string' && reISO8601.test(value)
+        ? moment(value, 'YYYY-MM-DDTHH:mm:ssZZ').format(format) // safari hack - doesn't support '-', only '/'
+        : moment(value).format(format);
+    }
+    return null;
   }
 }
 

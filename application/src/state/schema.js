@@ -5,14 +5,14 @@ import Logger from '../lib/Logger';
 const country = new s.Entity('countries');
 const region = new s.Entity('regions');
 const role = new s.Entity('roles');
-const terms_of_service = new s.Entity('terms_of_services');
+const termsOfService = new s.Entity('termsOfServices');
 const user = new s.Entity('users', {
   roles: [role]
 });
 const administrator = new s.Entity('administrators', {
   roles: [role]
 });
-const app_key = new s.Entity('app_keys');
+const appKey = new s.Entity('appKeys');
 const login = new s.Entity('logins');
 
 const schema = {
@@ -21,9 +21,9 @@ const schema = {
   user: user,
   administrator: administrator,
   role: role,
-  app_key: app_key,
-  terms_of_service: terms_of_service,
-  login: login
+  appKey: appKey,
+  termsOfService: termsOfService,
+  login: login,
 };
 
 export {schema};

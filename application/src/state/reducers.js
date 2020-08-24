@@ -9,40 +9,38 @@ import {
   SESSION_CREATE_REQUEST,
   SESSION_CREATE_SUCCESS,
   SESSION_CREATE_FAILURE,
-  SESSION_DESTROY
+  SESSION_FORM_DESTROY,
+  SESSION_HYDRATE,
+  SESSION_DESTROY,
 } from './actions';
-import {userAccount} from './userAccount/reducers';
-import {locations} from './locations/reducers';
-import {roles} from './roles/reducers';
-import {users} from './users/reducers';
-import {administrators} from './administrators/reducers';
-import {appKeys} from './appKeys/reducers';
-import {termsOfServices} from './termsOfServices/reducers';
-import {logins} from './logins/reducers';
+import ui from './ui/reducers';
 import extend from '../lib/Extend';
-import Auth from '../lib/Auth';
+import Config from '../Config';
 import Logger from '../lib/Logger';
+import Auth from '../lib/Auth';
 
+const initialEntitiesState = Map({});
 
 export function entities(
-  state=Map({}),
+  state=initialEntitiesState,
   action
 ) {
-  Logger.log('debug', `[reducers] entities(%j, %j)`, state, action);
+  Logger.log('debug', `[state.reducers] entities(###, ###)`, state, action);
 
   switch(action.type) {
 
     case ADD_ENTITIES:
-      // return state.mergeDeep(action.payload.entities);
       const tempState = {};
       for (var key in action.payload.entities) {
         tempState[key] = {...state.get(key, {}), ...action.payload.entities[key]};
       }
-      // return state.merge(tempState);
       return Map(extend(true, state.toJS(), tempState));
 
     case REMOVE_ENTITY:
       return state.deleteIn([action.payload.entityType, action.payload.id]);
+    
+    case SESSION_DESTROY:
+      return initialEntitiesState;
 
     default:
       return state;
@@ -77,8 +75,16 @@ export function messages(
   }
 }
 
-const initialSessionState = Map({
-  isLoading: false,
+const initialSessionStateNoAuth = Map({
+  isSubmitting: false,
+  isPasswordResetCodeSubmitting: false,
+  isPasswordResetSubmitting: false,
+  form: null,
+  passwordResetCodeForm: null,
+  passwordResetForm: null
+});
+
+const initialSessionState = initialSessionStateNoAuth.mergeDeep({
   ...Auth.getSession()
 });
 
@@ -86,19 +92,19 @@ export function session(
   state=initialSessionState,
   action
 ) {
-  Logger.log('debug', `[reducers] session(%j, %j)`, state, action);
+  Logger.log('debug', `[state.reducers] session(###, ###)`, state, action);
 
   switch(action.type) {
 
     case SESSION_CREATE_REQUEST:
       return state.mergeDeep({
-        isLoading: true,
+        isSubmitting: true,
         form: null
       });
 
     case SESSION_CREATE_SUCCESS:
       return state.mergeDeep({
-        isLoading: false,
+        isSubmitting: false,
         form: {
           success: true
         },
@@ -112,36 +118,52 @@ export function session(
 
     case SESSION_CREATE_FAILURE:
       return state.mergeDeep({
-        isLoading: false,
+        isSubmitting: false,
         form: {
           success: false
         }
       }).setIn(['form', 'errors'], action.error);
+
+    case SESSION_FORM_DESTROY:
+        return state.mergeDeep({
+          form: null
+        }).set('form', action.form);
+
+    case SESSION_HYDRATE:
+      return state.mergeDeep({
+        authToken: action.authToken,
+        authExpiration: action.authExpiration,
+        authExpires: action.authExpires,
+        userId: action.userId,
+        username: action.username
+      });
     
     case SESSION_DESTROY:
-      return Map({
-        isLoading: false
-      });
+      return initialSessionStateNoAuth;
 
     default:
       return state;
   }
 }
 
+// register modules
+const moduleReducers = {};
+Config.get('MODULE_TOGGLES').keySeq().forEach(k => {
+  if (Config.getIn(['MODULE_TOGGLES', k, 'enabled'])) {
+    try {
+      moduleReducers[k] = require(`./modules/${k}/reducers.js`).default;
+    } catch(ex) {}
+  }
+});
+
 const rootReducer = combineReducers({
   session,
   entities,
   messages,
-  userAccount,
-  locations,
-  roles,
-  users,
-  administrators,
-  appKeys,
-  termsOfServices,
-  logins,
+  ui,
+  ...moduleReducers
 });
 
 export default rootReducer;
 
-Logger.log('silly', `reducers loaded.`);
+Logger.log('silly', `state.reducers loaded.`);

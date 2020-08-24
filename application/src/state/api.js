@@ -1,14 +1,15 @@
 import axios from 'axios';
 import {Map} from 'immutable';
 
-import store from './store';
+import Auth from '../lib/Auth';
+import QueryString from '../lib/QueryString';
 import Logger from '../lib/Logger';
 import Config from '../Config';
 
 class API {
 
   constructor(config, axios) {
-    Logger.log('debug', `API.constructor(%j, %j)`, config, axios);
+    Logger.log('debug', `API.constructor(###, ###)`);
 
     // config props
     this.environment = config.get('ENVIRONMENT');
@@ -18,24 +19,47 @@ class API {
     // internal props
     this.axios = axios;
     this.authToken = null;
+    this.authExpires = null;
+    this.destroySession = null;
+  }
+
+  setAuthToken(authToken) {
+    this.authToken = authToken;
+  }
+
+  setAuthExpires(authExpires) {
+    this.authExpires = authExpires;
+  }
+
+  setDestroySession(destroySession) {
+    this.destroySession = destroySession;
+  }
+
+  // destroy session data and redirect to auth screen
+  _logout = () => {
+    Logger.log('debug', `API._logout()`);
+    this.destroySession();
   }
 
   // get authentication token
   _getAuthToken() {
     Logger.log('debug', `API._getAuthToken()`);
-    this.authToken = store.getState().session.get('authToken');
-    return this.authToken;
+    const authToken = this.authToken;
+    const authExpires = this.authExpires;
+    return Auth.isAuthTokenValid(authToken, authExpires) ? authToken : false;
   }
 
   // get request headers
   _getRequestHeaders(validateStatus=null, authenticate=true) {
     Logger.log('debug', `API._getRequestHeaders(${validateStatus}, ${authenticate})`);
 
-    if (authenticate && !this._getAuthToken()) {
+    const authToken = this._getAuthToken();
+    if (authenticate && !authToken) {
+      this._logout();
       return false;
     }
-    const authConfig = this._getAuthToken()
-      ? {"auth": {"username": this._getAuthToken()}}
+    const authConfig = authToken
+      ? {"auth": {"username": authToken}}
       : {};
     const vaildateStatusConfig = validateStatus
       ? {"validateStatus": (status) => status < validateStatus}
@@ -51,7 +75,7 @@ class API {
 
   // generic API call helper
   async _callApi(method, path, payload=null, authenticate=true) {
-    Logger.log('debug', `API._callApi(###, ${path}, %j, ${authenticate})`, payload);
+    Logger.log('debug', `API._callApi(###, ${path}, ###, ${authenticate})`, payload);
 
     // get headers and check authentication token
     const requestHeaders = this._getRequestHeaders(500, authenticate);
@@ -64,7 +88,10 @@ class API {
       // call API with payload
       return await method(path, payload, requestHeaders)
         .then(async function(response) {
-          Logger.log('verbose', "API Response: %j", response);
+          Logger.log('verbose', `API Response:`, response);
+          if (response.status === 401) {
+            this._logout();
+          }
           return Map(response);
         })
         .catch(function(error) {
@@ -77,7 +104,10 @@ class API {
       // call API without payload
       return await method(path, requestHeaders)
         .then(async function(response) {
-          Logger.log('verbose', "API Response: %j", response);
+          Logger.log('verbose', `API Response:`, response);
+          if (response.status === 401) {
+            this._logout();
+          }
           return Map(response);
         })
         .catch(function(error) {
@@ -165,12 +195,12 @@ class API {
   }
 
   // GET /roles
-  async getRoles(page=1, limit=10, type=null) {
-    Logger.log('debug', `API.getRoles(${page}, ${limit})`);
+  async getRoles(page=1, limit=10, type=null, order=null) {
+    Logger.log('debug', `API.getRoles(${page}, ${limit}, ${type}, ${order})`);
     if (type) {
-      return await this.GET(this._getUri(`/roles/${type}/${parseInt(page)}/${parseInt(limit)}`));
+      return await this.GET(this._getUri(QueryString.append(`/roles/${type}/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
     } else {
-      return await this.GET(this._getUri(`/roles/${parseInt(page)}/${parseInt(limit)}`));
+      return await this.GET(this._getUri(QueryString.append(`/roles/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
     }
   }
 
@@ -211,9 +241,9 @@ class API {
   }
 
   // GET /users
-  async getUsers(page=1, limit=10) {
-    Logger.log('debug', `API.getUsers(${page}, ${limit})`);
-    return await this.GET(this._getUri(`/users/${parseInt(page)}/${parseInt(limit)}?order_by=id.desc`));
+  async getUsers(page=1, limit=10, order=null) {
+    Logger.log('debug', `API.getUsers(${page}, ${limit}, ${order})`);
+    return await this.GET(this._getUri(QueryString.append(`/users/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
   }
 
   // GET /user/{id}
@@ -241,9 +271,9 @@ class API {
   }
 
   // GET /administrators
-  async getAdministrators(page=1, limit=10) {
-    Logger.log('debug', `API.getAdministrators(${page}, ${limit})`);
-    return await this.GET(this._getUri(`/administrators/${parseInt(page)}/${parseInt(limit)}?order_by=id.desc`));
+  async getAdministrators(page=1, limit=10, order=null) {
+    Logger.log('debug', `API.getAdministrators(${page}, ${limit}, ${order})`);
+    return await this.GET(this._getUri(QueryString.append(`/administrators/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
   }
 
   // GET /administrator/{id}
@@ -271,9 +301,9 @@ class API {
   }
 
   // GET /app_keys
-  async getAppKeys(page=1, limit=10) {
-    Logger.log('debug', `API.getAppKeys(${page}, ${limit})`);
-    return await this.GET(this._getUri(`/app_keys/${parseInt(page)}/${parseInt(limit)}?order_by=id.asc`));
+  async getAppKeys(page=1, limit=10, order=null) {
+    Logger.log('debug', `API.getAppKeys(${page}, ${limit}, ${order})`);
+    return await this.GET(this._getUri(QueryString.append(`/app_keys/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
   }
 
   // GET /app_key/{id}
@@ -331,9 +361,9 @@ class API {
   }
 
   // GET /logins
-  async getLogins(page=1, limit=10) {
-    Logger.log('debug', `API.getLogins(${page}, ${limit})`);
-    return await this.GET(this._getUri(`/logins/${parseInt(page)}/${parseInt(limit)}?order_by=attempt_date.desc`));
+  async getLogins(page=1, limit=10, order=null) {
+    Logger.log('debug', `API.getLogins(${page}, ${limit}, ${order})`);
+    return await this.GET(this._getUri(QueryString.append(`/logins/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
   }
 }
 
