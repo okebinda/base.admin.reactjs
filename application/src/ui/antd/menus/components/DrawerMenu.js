@@ -2,10 +2,12 @@ import React from 'react';
 import {Link, withRouter} from 'react-router-dom';
 import {Menu} from 'antd';
 import {
+  CrownOutlined,
   DashboardOutlined,
-  HomeOutlined,
+  IdcardOutlined,
+  KeyOutlined,
   LogoutOutlined,
-  SettingOutlined,
+  SafetyOutlined,
   UserOutlined
 } from '@ant-design/icons';
 import {Translation} from 'react-i18next';
@@ -19,27 +21,48 @@ function DrawerMenu(props) {
 
   const routes = [
     {
-      'key': '1',
+      'key': 'dashboard',
       'screen': 'DashboardScreen',
-      'title': 'menu_item_dashboard',
+      'title': 'dashboard_menu_item',
       'icon': <DashboardOutlined />
     },
     {
-      'key': '2',
-      'screen': 'Temp1Screen',
-      'title': 'Temp 1',
-      'icon': <HomeOutlined />
+      'key': 'user-list',
+      'screen': 'UsersScreen',
+      'title': 'users_menu_item_list',
+      'icon': <UserOutlined />
     },
     {
-      'key': '3',
-      'screen': 'Temp2Screen',
-      'title': 'Temp 2',
-      'icon': <SettingOutlined />
+      'key': 'administrator-list',
+      'screen': 'AdministratorsScreen',
+      'title': 'administrators_menu_item_list',
+      'icon': <CrownOutlined />
     },
     {
-      'key': '4',
+      'key': 'role-list',
+      'screen': 'RolesScreen',
+      'title': 'roles_menu_item_list',
+      'icon': <SafetyOutlined />
+    },
+    {
+      'key': 'app-key-list',
+      'screen': 'AppKeysScreen',
+      'title': 'app_keys_menu_item_list',
+      'icon': <KeyOutlined />
+    },
+    {
+      'key': 'login-list',
+      'screen': 'LoginsScreen',
+      'title': 'logins_menu_item_list',
+      'icon': <IdcardOutlined />
+    },
+  ];
+
+  const userRoutes = [
+    {
+      'key': 'user-account',
       'screen': 'UserAccountScreen',
-      'title': 'menu_item_user_account',
+      'title': 'user_account_menu_item',
       'icon': <UserOutlined />
     }
   ];
@@ -52,6 +75,7 @@ function DrawerMenu(props) {
   return (
     <Translation>{(t) => 
       <Menu theme="light" mode="inline" selectedKeys={null} inlineIndent={0}>
+        
         {routes.map(
           x => hasRoute(x.screen)
             ? <Menu.Item key={x.key}>
@@ -62,10 +86,27 @@ function DrawerMenu(props) {
               </Menu.Item>
             : null
           )}
-        <Menu.Item key="2" onClick={logout}>
+
+        <Menu.Divider />
+
+        {userRoutes.map(
+          x => hasRoute(x.screen)
+            ? <Menu.Item key={x.key}>
+                <Link to={pathTo(x.screen)} onClick={props.toggleDrawer}>
+                  {x.icon}
+                  <span>{t(x.title)}</span>
+                </Link>
+              </Menu.Item>
+            : null
+          )}
+
+        <Menu.Divider />
+
+        <Menu.Item key="logout" onClick={logout}>
           <LogoutOutlined />
-          {t('menu_item_signout')}
+          {t('session_menu_item_signout')}
         </Menu.Item>
+
       </Menu>
     }</Translation>
   )
