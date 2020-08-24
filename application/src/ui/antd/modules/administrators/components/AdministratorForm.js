@@ -132,7 +132,7 @@ const AdministratorForm = ({id, data, errors, load, destroyForm, isLoading, isSu
           >
             <Row gutter={16}>
 
-              <Col span={18}>
+              <Col xs={24} lg={18}>
                 <Card
                   title={id ? t('administrators_edit_title') : t('administrators_add_title')}
                   extra={isLoading
@@ -251,7 +251,7 @@ const AdministratorForm = ({id, data, errors, load, destroyForm, isLoading, isSu
 
               </Col>
 
-              <Col span={6}>
+              <Col xs={24} lg={6}>
                 <Affix offsetTop={10}>
                   <Card title={t('form_metadata_header')}>
                     <FormMetadata

@@ -66,11 +66,11 @@ const FormMetadata = ({id, isSubmitting, deleteRedirectTo, showStatus=true, ...p
     <Translation>{(t) =>
       <>
 
-      {props.createdAt && width > 1024
-        ? <p>{t('form_metadata_created_at')} <small>{Format.date(props.createdAt, Config.get('DEFAULT_DATETIME_FORMAT'))}</small></p>
+      {props.createdAt
+        ? <p>{t('form_metadata_created_at')} <small>{Format.date(props.createdAt, Config.get(width < 992 || width > 1250 ? 'DEFAULT_DATETIME_FORMAT' : 'DEFAULT_DATE_FORMAT'))}</small></p>
         : ''}
-      {props.updatedAt && props.updatedAt !== props.createdAt && width > 1024
-        ? <p>{t('form_metadata_updated_ad')} <small>{Format.date(props.updatedAt, Config.get('DEFAULT_DATETIME_FORMAT'))}</small></p>
+      {props.updatedAt && props.updatedAt !== props.createdAt
+        ? <p>{t('form_metadata_updated_ad')} <small>{Format.date(props.updatedAt, Config.get(width < 992 || width > 1250 ? 'DEFAULT_DATETIME_FORMAT' : 'DEFAULT_DATE_FORMAT'))}</small></p>
         : ''}
 
         {showStatus ? <StatusInput /> : null}
@@ -78,6 +78,15 @@ const FormMetadata = ({id, isSubmitting, deleteRedirectTo, showStatus=true, ...p
         <div className="form-actions">
 
           <Space>
+            <Button
+              type="primary"
+              icon={<CheckCircleOutlined />}
+              htmlType="submit"
+              loading={isSubmitting}
+            >
+              {t('form_button_submit')}
+            </Button>
+
             {id
               ? <Popconfirm
                   placement="topRight"
@@ -91,19 +100,10 @@ const FormMetadata = ({id, isSubmitting, deleteRedirectTo, showStatus=true, ...p
                     type="primary"
                     icon={<DeleteOutlined />}
                   >
-                    {width >= 1300 ? t('action_delete') : null}
+                    {width < 992 || width >= 1300 ? t('action_delete') : null}
                   </Button>
                 </Popconfirm>
               : null}
-          
-            <Button
-              type="primary"
-              icon={<CheckCircleOutlined />}
-              htmlType="submit"
-              loading={isSubmitting}
-            >
-              {width >= 1024 ? t('form_button_submit') : null}
-            </Button>
           </Space>
 
         </div>

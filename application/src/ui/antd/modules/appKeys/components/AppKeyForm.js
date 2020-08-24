@@ -125,7 +125,7 @@ const AppKeyForm = ({id, data, errors, load, destroyForm, isLoading, isSubmittin
           >
             <Row gutter={16}>
 
-              <Col span={18}>
+              <Col xs={24} lg={18}>
                 <Card
                   title={id ? t('app_key_edit_title') : t('app_key_add_title')}
                   extra={isLoading
@@ -162,7 +162,7 @@ const AppKeyForm = ({id, data, errors, load, destroyForm, isLoading, isSubmittin
                 </Card>
               </Col>
 
-              <Col span={6}>
+              <Col xs={24} lg={6}>
                 <Affix offsetTop={10}>
                   <Card title={t('form_metadata_header')}>
                     <FormMetadata
