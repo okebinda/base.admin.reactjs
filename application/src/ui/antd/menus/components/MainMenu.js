@@ -5,6 +5,7 @@ import {
   CrownOutlined,
   DashboardOutlined,
   IdcardOutlined,
+  InfoCircleOutlined,
   KeyOutlined,
   SafetyOutlined,
   UserOutlined
@@ -37,6 +38,12 @@ function MainMenu(props) {
       'screen': 'UsersScreen',
       'title': 'users_menu_item_list',
       'icon': <UserOutlined />
+    },
+    {
+      'key': 'tos-list',
+      'screen': 'TermsOfServicesScreen',
+      'title': 'terms_of_services_menu_item_list',
+      'icon': <InfoCircleOutlined />
     },
   ];
 

@@ -225,18 +225,29 @@
       "users_form_hint_password": "Leave blank to keep existing password.",
 
 
+      "terms_of_services_route_list": "Terms of Services",
+      "terms_of_services_route_edit": "Edit Terms of Service",
+      "terms_of_services_route_add": "Add Terms of Service",
+
+      "terms_of_services_menu_item_list": "Terms of Services",
+
+      "terms_of_services_list_title": "Terms of Services",
+      "terms_of_service_add_title": "Add Terms of Service",
+      "terms_of_service_edit_title": "Edit Terms of Service",
+
+      "terms_of_services_text": "Text",
+      "terms_of_services_version": "Version",
+      "terms_of_services_publish_date": "Publish Date",
 
 
 
+
+
       
       
       
-      
-      "route_terms_of_services": "Terms of Services",
-      "route_terms_of_service_add": "Add Terms of Service",
-      "route_terms_of_service_edit": "Edit Terms of Service",
-      
-      
+
+  
       
       "menu_item_users": "Users",
       
@@ -273,14 +284,7 @@
 
       
 
-      "terms_of_services_title": "Terms of Services",
-      "terms_of_service_add_title": "Add Terms of Service",
-      "terms_of_service_edit_title": "Edit Terms of Service",
-      "terms_of_service_header_terms_of_service": "Terms of Service",
-
-      "terms_of_service_text": "Text",
-      "terms_of_service_version": "Version",
-      "terms_of_service_publish_date": "Publish Date",
+      
       
       "roles_input_role_title": "Roles",
 

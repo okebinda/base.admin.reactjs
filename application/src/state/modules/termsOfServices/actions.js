@@ -26,12 +26,13 @@ export const TERMS_OF_SERVICE_FORM_DESTROY = 'TERMS_OF_SERVICE_FORM_DESTROY';
 
 // ACTION CREATORS
 
-export function termsOfServiceListRequest(page, limit) {
-  Logger.log('debug', `[termsOfServices.actions] termsOfServiceListRequest(${page}, ${limit})`);
+export function termsOfServiceListRequest(page, limit, order) {
+  Logger.log('debug', `[termsOfServices.actions] termsOfServiceListRequest(${page}, ${limit}, ${order})`);
   return {
     type: TERMS_OF_SERVICE_LIST_REQUEST,
     page: page,
-    limit: limit
+    limit: limit,
+    order: order,
   }
 }
 
@@ -193,25 +194,25 @@ export function termsOfServiceFormDestroy(formState=null) {
 
 // API THUNK ACTION CREATORS
 
-export function loadTermsOfServices(page=1, limit=10, cb=function(){}) {
+export function loadTermsOfServices(page=1, limit=10, order=null, cb=function(){}) {
   Logger.log('debug', `[termsOfServices.actions] loadTermsOfServices(${page}, ${limit}, ###)`);
 
   return async function(dispatch) {
-    dispatch(termsOfServiceListRequest(page, limit));
+    dispatch(termsOfServiceListRequest(page, limit, order));
 
     // call API
-    const response = await api.getTermsOfServices(page, limit);
+    const response = await api.getTermsOfServices(page, limit, order);
 
     // get ToS list success
     if (200 === response.get('status')) {
 
-      Logger.log('info', `Get API ToS list success. Page: ${page}, Limit: ${limit}.`);
+      Logger.log('info', `Get API ToS list success. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
 
-      const normalizedEntities = normalize(response.getIn(['data', 'terms_of_services']), [schema.terms_of_service]);
+      const normalizedEntities = normalize(response.getIn(['data', 'terms_of_services']), [schema.termsOfService]);
       const data = {
         page: response.getIn(['data', 'page']),
         limit: response.getIn(['data', 'limit']),
-        order: 'id.asc',
+        order: order,
         total: response.getIn(['data', 'total']),
         result: normalizedEntities.result
       };
@@ -221,7 +222,7 @@ export function loadTermsOfServices(page=1, limit=10, cb=function(){}) {
       
     // get ToS list failure
     } else {
-      Logger.log('info', `Get API ToS list failure. Page: ${page}, Limit: ${limit}.`);
+      Logger.log('info', `Get API ToS list failure. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
       dispatch(termsOfServiceListFailure(response.getIn(['data', 'error'])));
     }
 
@@ -238,13 +239,15 @@ export function loadTermsOfService(id, cb=function(){}) {
 
     // call API
     const response = await api.getTermsOfService(id);
+    let success = false;
 
     // get ToS success
     if (200 === response.get('status')) {
 
       Logger.log('info', `Get API ToS success. ID: ${id}.`);
+      success = true;
 
-      const normalizedEntities = normalize([response.getIn(['data', 'terms_of_service'])], [schema.terms_of_service]);
+      const normalizedEntities = normalize([response.getIn(['data', 'terms_of_service'])], [schema.termsOfService]);
       const data = {
         id: response.getIn(['data', 'terms_of_service', 'id']),
         text: response.getIn(['data', 'terms_of_service', 'text']),
@@ -266,7 +269,7 @@ export function loadTermsOfService(id, cb=function(){}) {
     }
 
     // callback function
-    cb();
+    cb(success);
   }
 }
 
@@ -285,7 +288,7 @@ export function updateTermsOfService(id, data, cb=function(){}) {
 
       Logger.log('info', `PUT API ToS success. User: ${id}.`);
 
-      const normalizedEntities = normalize([response.getIn(['data', 'terms_of_service'])], [schema.terms_of_service]);
+      const normalizedEntities = normalize([response.getIn(['data', 'terms_of_service'])], [schema.termsOfService]);
       const data = {
         id: response.getIn(['data', 'terms_of_service', 'id']),
         text: response.getIn(['data', 'terms_of_service', 'text']),
@@ -327,7 +330,7 @@ export function createTermsOfService(data, cb=function(){}) {
 
       Logger.log('info', `POST API ToS success. ID: ${response.getIn(['data', 'terms_of_service', 'id'])}.`);
 
-      const normalizedEntities = normalize([response.getIn(['data', 'terms_of_service'])], [schema.terms_of_service]);
+      const normalizedEntities = normalize([response.getIn(['data', 'terms_of_service'])], [schema.termsOfService]);
       const data = {
         id: response.getIn(['data', 'terms_of_service', 'id']),
         text: response.getIn(['data', 'terms_of_service', 'text']),

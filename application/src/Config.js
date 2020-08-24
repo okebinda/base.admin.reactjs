@@ -30,7 +30,7 @@ const Config = Map({
     'administrators': {'enabled': true, 'routes': true},
     'roles': {'enabled': true, 'routes': true},
     'appKeys': {'enabled': true, 'routes': true},
-    'termsOfServices': {'enabled': false, 'routes': true},
+    'termsOfServices': {'enabled': true, 'routes': true},
     'logins': {'enabled': true, 'routes': true}
   })
 });

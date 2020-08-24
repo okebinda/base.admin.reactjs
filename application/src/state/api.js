@@ -331,9 +331,9 @@ class API {
   }
 
   // GET /terms_of_services
-  async getTermsOfServices(page=1, limit=10) {
-    Logger.log('debug', `API.getTermsOfServices(${page}, ${limit})`);
-    return await this.GET(this._getUri(`/terms_of_services/${parseInt(page)}/${parseInt(limit)}?order_by=id.asc`));
+  async getTermsOfServices(page=1, limit=10, order=null) {
+    Logger.log('debug', `API.getTermsOfServices(${page}, ${limit}, ${order})`);
+    return await this.GET(this._getUri(QueryString.append(`/terms_of_services/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
   }
 
   // GET /terms_of_service/{id}
