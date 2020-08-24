@@ -76,6 +76,7 @@ const UsersList = ({component, page, limit, order, total, load, remove, history,
           id={id}
           page={page}
           limit={limit}
+          order={order}
           load={load.bind(this)}
           remove={remove.bind(this)}
           editScreen="UserEditScreen"

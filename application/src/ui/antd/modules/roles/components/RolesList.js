@@ -71,6 +71,7 @@ const RolesList = ({component, page, limit, order, total, load, remove, history,
           id={id}
           page={page}
           limit={limit}
+          order={order}
           load={load.bind(this)}
           remove={remove.bind(this)}
           editScreen="RoleEditScreen"
@@ -107,7 +108,7 @@ const RolesList = ({component, page, limit, order, total, load, remove, history,
   }
 
   useEffect(() => {
-    load(page, limit, null, order);
+    load(page, limit, order);
   }, [page, limit, order, load]);
 
   return (

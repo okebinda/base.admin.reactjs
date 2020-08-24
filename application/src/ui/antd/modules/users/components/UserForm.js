@@ -213,7 +213,7 @@ const UserForm = ({id, data, errors, load, destroyForm, isLoading, isSubmitting,
                         {type: 'string', min: 1, max: 40, message: t('feedback_validation_char_range', {min: 1, max: 40})},
                       ]}
                     >
-                      <Input autoFocus disabled={isLoading || isSubmitting} />
+                      <Input disabled={isLoading || isSubmitting} />
                     </Form.Item>
                   </div>
 
@@ -226,7 +226,7 @@ const UserForm = ({id, data, errors, load, destroyForm, isLoading, isSubmitting,
                         {type: 'string', min: 2, max: 40, message: t('feedback_validation_char_range', {min: 2, max: 40})},
                       ]}
                     >
-                      <Input autoFocus disabled={isLoading || isSubmitting} />
+                      <Input disabled={isLoading || isSubmitting} />
                     </Form.Item>
                   </div>
 

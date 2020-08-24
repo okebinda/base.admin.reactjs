@@ -8,12 +8,12 @@ import message from '../lib/MessageWrapper';
 import {pathTo} from '../../Routes';
 
 
-const ListActions = ({id, page, limit, load, remove, editScreen, history, ...props}) => {
+const ListActions = ({id, page, limit, order, load, remove, editScreen, history, ...props}) => {
 
   const confirm = id => {
     remove(id, (success) => {
       if (success) {
-        load(page, limit);
+        load(page, limit, order);
         message.success(getI18n().t('feedback_delete_success'));
       } else {
         message.error(getI18n().t('feedback_delete_error'));

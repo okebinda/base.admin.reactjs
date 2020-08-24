@@ -195,8 +195,8 @@ class API {
   }
 
   // GET /roles
-  async getRoles(page=1, limit=10, type=null, order=null) {
-    Logger.log('debug', `API.getRoles(${page}, ${limit}, ${type}, ${order})`);
+  async getRoles(page=1, limit=10, order=null, type=null) {
+    Logger.log('debug', `API.getRoles(${page}, ${limit}, ${order}, ${type})`);
     if (type) {
       return await this.GET(this._getUri(QueryString.append(`/roles/${type}/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
     } else {

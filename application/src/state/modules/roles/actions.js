@@ -22,8 +22,8 @@ export const ROLE_DELETE_SUCCESS = 'ROLE_DELETE_SUCCESS';
 export const ROLE_DELETE_FAILURE = 'ROLE_DELETE_FAILURE';
 export const ROLE_FORM_DESTROY = 'ROLE_FORM_DESTROY';
 
-export function roleListRequest(page, limit, type, order) {
-  Logger.log('debug', `[roles.actions] roleListRequest(${page}, ${limit}, ${type}, ${order})`);
+export function roleListRequest(page, limit, order, type) {
+  Logger.log('debug', `[roles.actions] roleListRequest(${page}, ${limit}, ${order}, ${type})`);
   return {
     type: ROLE_LIST_REQUEST,
     page: page,
@@ -222,19 +222,19 @@ export function roleFormDestroy(formState=null) {
 
 // API THUNK ACTION CREATORS
 
-export function loadRoles(page=1, limit=10, type=null, order=null, cb=function(){}) {
+export function loadRoles(page=1, limit=10, order=null, type=null, cb=function(){}) {
   Logger.log('debug', `[roles.actions] loadRoles(${page}, ${limit}, ${type}, ${order}, ###)`);
 
   return async function(dispatch) {
-    dispatch(roleListRequest(page, limit, type, order));
+    dispatch(roleListRequest(page, limit, order, type));
 
     // call API
-    const response = await api.getRoles(page, limit, type, order);
+    const response = await api.getRoles(page, limit, order, type);
 
     // get roles list success
     if (200 === response.get('status')) {
 
-      Logger.log('info', `Get API roles list success. Page: ${page}, Limit: ${limit}, Type: ${type}, Order: ${order}.`);
+      Logger.log('info', `Get API roles list success. Page: ${page}, Limit: ${limit}, Order: ${order}, Type: ${type}.`);
 
       const normalizedEntities = normalize(response.getIn(['data', 'roles']), [schema.role]);
       const data = {
@@ -250,7 +250,7 @@ export function loadRoles(page=1, limit=10, type=null, order=null, cb=function()
       
     // get roles list failure
     } else {
-      Logger.log('info', `Get API roles list failure. Page: ${page}, Limit: ${limit}, Type: ${type}, Order: ${order}.`);
+      Logger.log('info', `Get API roles list failure. Page: ${page}, Limit: ${limit}, Order: ${order}, Type: ${type}.`);
       dispatch(roleListFailure(response.getIn(['data', 'error'])));
     }
 

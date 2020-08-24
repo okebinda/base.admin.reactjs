@@ -65,6 +65,7 @@ const AppKeysList = ({component, page, limit, order, total, load, remove, histor
           id={id}
           page={page}
           limit={limit}
+          order={order}
           load={load.bind(this)}
           remove={remove.bind(this)}
           editScreen="AppKeyEditScreen"
