@@ -242,56 +242,6 @@
 
 
 
-
-      
-      
-      
-
-  
-      
-      "menu_item_users": "Users",
-      
-      "menu_item_roles": "Roles",
-
-      "route_user_add": "Add User",
-      "route_user_edit": "Edit User",
-
-      "locations_input_country_title": "Country",
-      "locations_input_region_title": "State/Region",
-
-      "user_account_title": "Account Settings",
-      "user_account_header_account": "Account Info",
-      "user_account_header_profile": "Profile Info",
-      "user_account_header_password": "Update Password",
-      "user_account_form_username": "Username",
-      "user_account_form_email": "Email Address",
-      "user_account_form_password": "Password",
-      "user_account_form_hint_password": "Leave blank to keep existing password.",
-      "user_account_form_first_name": "First Name",
-      "user_account_form_last_name": "Last Name",
-
-      "update_password_title": "Update Password",
-      "update_password_header": "Manage Your Password",
-      "update_password_form_previous_password": "Current Password",
-      "update_password_form_password1": "New Password",
-      "update_password_form_password2": "Re-enter New Password",
-
-      "users_title": "Users",
-      "user_add_title": "Add User",
-      "user_edit_title": "Edit User",
-
-      
-
-      
-
-      
-      
-      "roles_input_role_title": "Roles",
-
-      
-
-      
-
       "__test_string": "Test string for unit tests, do not remove."
     }
   },
