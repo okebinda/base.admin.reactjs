@@ -12,10 +12,15 @@ import {
 import {Translation} from 'react-i18next';
 
 import {pathTo, hasRoute, getRouteFromPath} from '../../Routes';
+import useWindowDimensions from '../../../../lib/WindowDimensions';
 import Logger from '../../../../lib/Logger';
+import Config from '../../../../Config';
 
 
 function MainMenu(props) {
+
+  const {width} = useWindowDimensions();
+  const collapseSidebarWidth = Config.get('UI_COLLAPSE_SIDEBAR_WIDTH');
 
   const topRoutes = [
     {
@@ -86,7 +91,10 @@ function MainMenu(props) {
             : null
           )}
 
-        <Menu.ItemGroup key="public-menu" title={props.isMenuCollapsed ? null : t('menu_group_public')}>
+        <Menu.ItemGroup
+          key="public-menu"
+          title={props.isMenuCollapsed || width <= collapseSidebarWidth ? null : t('menu_group_public')}
+        >
           {publicRoutes.map(
             x => hasRoute(x.screen)
               ? <Menu.Item key={x.key}>
@@ -99,7 +107,10 @@ function MainMenu(props) {
             )}
         </Menu.ItemGroup>
 
-        <Menu.ItemGroup key="admin-menu" title={props.isMenuCollapsed ? null : t('menu_group_admin')}>
+        <Menu.ItemGroup
+          key="admin-menu"
+          title={props.isMenuCollapsed || width <= collapseSidebarWidth ? null : t('menu_group_admin')}
+        >
           {adminRoutes.map(
             x => hasRoute(x.screen)
               ? <Menu.Item key={x.key}>

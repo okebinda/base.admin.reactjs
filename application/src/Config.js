@@ -20,6 +20,7 @@ const Config = Map({
   DEFAULT_DATETIME_FORMAT: 'MM/DD/YYYY HH:mm:ss',
 
   API_DATETIME_FORMAT: 'YYYY-MM-DDTHH:mm:ssZZ',
+  UI_COLLAPSE_SIDEBAR_WIDTH: 1024, // screen width at which sidebar collapses automatically
   
   MODULE_TOGGLES: Map({
     'session': {'enabled': true, 'routes': true},
