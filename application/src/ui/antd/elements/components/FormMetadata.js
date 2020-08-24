@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
 import {Translation, getI18n} from 'react-i18next';
 import {Redirect} from 'react-router-dom'
-import {Button, Form, Popconfirm, Select} from 'antd';
+import {Button, Form, Popconfirm, Select, Space} from 'antd';
 import {CheckCircleOutlined, DeleteOutlined} from '@ant-design/icons';
 
 import message from '../lib/MessageWrapper';
+import useWindowDimensions from '../../../../lib/WindowDimensions';
 import {pathTo} from '../../Routes';
 import Config from '../../../../Config';
 import Format from '../../../../lib/Format';
@@ -44,6 +45,7 @@ const StatusInput = ({isLoading, isSubmitting, ...props}) => {
 const FormMetadata = ({id, isSubmitting, deleteRedirectTo, showStatus=true, ...props}) => {
 
   const [redirectTo, setRedirectTo] = useState(null);
+  const {width} = useWindowDimensions();
 
   const confirm = id => {
     props.delete(id, (suceess) => {
@@ -64,10 +66,10 @@ const FormMetadata = ({id, isSubmitting, deleteRedirectTo, showStatus=true, ...p
     <Translation>{(t) =>
       <>
 
-      {props.createdAt
+      {props.createdAt && width > 1024
         ? <p>{t('form_metadata_created_at')} <small>{Format.date(props.createdAt, Config.get('DEFAULT_DATETIME_FORMAT'))}</small></p>
         : ''}
-      {props.updatedAt && props.updatedAt !== props.createdAt
+      {props.updatedAt && props.updatedAt !== props.createdAt && width > 1024
         ? <p>{t('form_metadata_updated_ad')} <small>{Format.date(props.updatedAt, Config.get('DEFAULT_DATETIME_FORMAT'))}</small></p>
         : ''}
 
@@ -75,32 +77,34 @@ const FormMetadata = ({id, isSubmitting, deleteRedirectTo, showStatus=true, ...p
 
         <div className="form-actions">
 
-          {id
-            ? <Popconfirm
-                placement="topRight"
-                title={getI18n().t('delete_confirm_body')}
-                onConfirm={e => confirm(id)}
-                okText={getI18n().t('confirm_yes')}
-                cancelText={getI18n().t('confirm_cancel')}
-              >
-                <Button
-                  danger
-                  type="primary"
-                  icon={<DeleteOutlined />}
+          <Space>
+            {id
+              ? <Popconfirm
+                  placement="topRight"
+                  title={getI18n().t('delete_confirm_body')}
+                  onConfirm={e => confirm(id)}
+                  okText={getI18n().t('confirm_yes')}
+                  cancelText={getI18n().t('confirm_cancel')}
                 >
-                  {t('action_delete')}
-                </Button>
-              </Popconfirm>
-            : null}
-        
-          <Button
-            type="primary"
-            icon={<CheckCircleOutlined />}
-            htmlType="submit"
-            loading={isSubmitting}
-          >
-            {t('form_button_submit')}
-          </Button>
+                  <Button
+                    danger
+                    type="primary"
+                    icon={<DeleteOutlined />}
+                  >
+                    {width >= 1300 ? t('action_delete') : null}
+                  </Button>
+                </Popconfirm>
+              : null}
+          
+            <Button
+              type="primary"
+              icon={<CheckCircleOutlined />}
+              htmlType="submit"
+              loading={isSubmitting}
+            >
+              {width >= 1024 ? t('form_button_submit') : null}
+            </Button>
+          </Space>
 
         </div>
       </>
