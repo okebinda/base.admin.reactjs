@@ -26,13 +26,14 @@ export const TERMS_OF_SERVICE_FORM_DESTROY = 'TERMS_OF_SERVICE_FORM_DESTROY';
 
 // ACTION CREATORS
 
-export function termsOfServiceListRequest(page, limit, order) {
-  Logger.log('debug', `[termsOfServices.actions] termsOfServiceListRequest(${page}, ${limit}, ${order})`);
+export function termsOfServiceListRequest(page, limit, order, filter) {
+  Logger.log('debug', `[termsOfServices.actions] termsOfServiceListRequest(${page}, ${limit}, ${order}, %j)`, filter);
   return {
     type: TERMS_OF_SERVICE_LIST_REQUEST,
     page: page,
     limit: limit,
     order: order,
+    filter: filter,
   }
 }
 
@@ -194,14 +195,14 @@ export function termsOfServiceFormDestroy(formState=null) {
 
 // API THUNK ACTION CREATORS
 
-export function loadTermsOfServices(page=1, limit=10, order=null, cb=function(){}) {
+export function loadTermsOfServices(page=1, limit=10, order=null, filter=null, cb=function(){}) {
   Logger.log('debug', `[termsOfServices.actions] loadTermsOfServices(${page}, ${limit}, ###)`);
 
   return async function(dispatch) {
-    dispatch(termsOfServiceListRequest(page, limit, order));
+    dispatch(termsOfServiceListRequest(page, limit, order, filter));
 
     // call API
-    const response = await api.getTermsOfServices(page, limit, order);
+    const response = await api.getTermsOfServices(page, limit, order, filter);
 
     // get ToS list success
     if (200 === response.get('status')) {

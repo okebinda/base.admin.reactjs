@@ -32,8 +32,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    load: (page, limit, order, cb) => {
-      dispatch(loadLogins(page, limit, order, cb));
+    load: (page, limit, order, filter, cb) => {
+      dispatch(loadLogins(page, limit, order, filter, cb));
     }
   }
 }

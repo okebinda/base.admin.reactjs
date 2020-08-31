@@ -13,13 +13,14 @@ export const LOGIN_LIST_FAILURE = 'LOGIN_LIST_FAILURE';
 
 // ACTION CREATORS
 
-export function loginListRequest(page, limit, order) {
-  Logger.log('debug', `[logins.actions] loginListRequest(${page}, ${limit}, ${order})`);
+export function loginListRequest(page, limit, order, filter) {
+  Logger.log('debug', `[logins.actions] loginListRequest(${page}, ${limit}, ${order}, %j)`, filter);
   return {
     type: LOGIN_LIST_REQUEST,
     page: page,
     limit: limit,
     order: order,
+    filter: filter,
   }
 }
 
@@ -46,14 +47,14 @@ export function loginListFailure(error) {
 
 // API THUNK ACTION CREATORS
 
-export function loadLogins(page=1, limit=10, order=null, cb=function(){}) {
+export function loadLogins(page=1, limit=10, order=null, filter=null, cb=function(){}) {
   Logger.log('debug', `[logins.actions] loadLogins(${page}, ${limit}, ${order}, ###)`);
 
   return async function(dispatch) {
-    dispatch(loginListRequest(page, limit, order));
+    dispatch(loginListRequest(page, limit, order, filter));
 
     // call API
-    const response = await api.getLogins(page, limit, order);
+    const response = await api.getLogins(page, limit, order, filter);
     let success = false;
 
     // get logins list success

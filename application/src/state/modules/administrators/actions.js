@@ -26,13 +26,14 @@ export const ADMINISTRATOR_FORM_DESTROY = 'ADMINISTRATOR_FORM_DESTROY';
 
 // ACTION CREATORS
 
-export function administratorListRequest(page, limit, order) {
-  Logger.log('debug', `[administrators.actions] administratorListRequest(${page}, ${limit}, ${order})`);
+export function administratorListRequest(page, limit, order, filter) {
+  Logger.log('debug', `[administrators.actions] administratorListRequest(${page}, ${limit}, ${order}, %j)`, filter);
   return {
     type: ADMINISTRATOR_LIST_REQUEST,
     page: page,
     limit: limit,
     order: order,
+    filter: filter,
   }
 }
 
@@ -215,14 +216,14 @@ export function administratorFormDestroy(formState=null) {
 
 // API THUNK ACTION CREATORS
 
-export function loadAdministrators(page=1, limit=10, order=null, cb=function(){}) {
-  Logger.log('debug', `[administrators.actions] loadAdministrators(${page}, ${limit}, ${order}, ###)`);
+export function loadAdministrators(page=1, limit=10, order=null, filter=null, cb=function(){}) {
+  Logger.log('debug', `[administrators.actions] loadAdministrators(${page}, ${limit}, ${order}, %j, ###)`, filter);
 
   return async function(dispatch) {
-    dispatch(administratorListRequest(page, limit, order));
+    dispatch(administratorListRequest(page, limit, order, filter));
 
     // call API
-    const response = await api.getAdministrators(page, limit, order);
+    const response = await api.getAdministrators(page, limit, order, filter);
 
     // get administrators list success
     if (200 === response.get('status')) {

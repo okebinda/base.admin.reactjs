@@ -10,7 +10,7 @@ import Format from '../../../../../lib/Format';
 import QueryString from '../../../../../lib/QueryString';
 import Logger from '../../../../../lib/Logger';
 
-const RolesList = ({component, page, limit, order, total, load, remove, history, ...props}) => {
+const RolesList = ({component, page, limit, order, filter, total, load, remove, history, ...props}) => {
 
   const columns = [
     {
@@ -89,7 +89,7 @@ const RolesList = ({component, page, limit, order, total, load, remove, history,
   const handleTableChange = (pagination, filters, sorter) => {
 
     let path = props.location.pathname;
-    let params = null;
+    const params = {};
 
     // handle pagination
     if ('current' in pagination && pagination['current']) {
@@ -100,16 +100,26 @@ const RolesList = ({component, page, limit, order, total, load, remove, history,
     if ('field' in sorter && 'order' in sorter) {
       if (sorter['field'] && sorter['order']) {
         const order = sorter['field'] + '.' + (sorter['order'] === 'ascend' ? 'asc' : 'desc');
-        params = {order: order};
+        params['order'] = order;
+      }
+    }
+
+    // handle filters
+    if (filters) {
+      for (const key in filters) {
+        if (filters[key]) {
+          params[key] = filters[key].join(',');
+        }
       }
     }
 
     history.push(QueryString.append(path, params));
   }
 
+  const filterString = JSON.stringify(filter);
   useEffect(() => {
-    load(page, limit, order);
-  }, [page, limit, order, load]);
+    load(page, limit, order, JSON.parse(filterString));
+  }, [page, limit, order, filterString, load]);
 
   return (
     <Translation>{(t) => 

@@ -26,13 +26,14 @@ export const APP_KEY_FORM_DESTROY = 'APP_KEY_FORM_DESTROY';
 
 // ACTION CREATORS
 
-export function appKeyListRequest(page, limit, order) {
-  Logger.log('debug', `[appKeys.actions] appKeyListRequest(${page}, ${limit}, ${order})`);
+export function appKeyListRequest(page, limit, order, filter) {
+  Logger.log('debug', `[appKeys.actions] appKeyListRequest(${page}, ${limit}, ${order}, %j)`, filter);
   return {
     type: APP_KEY_LIST_REQUEST,
     page: page,
     limit: limit,
     order: order,
+    filter: filter
   }
 }
 
@@ -189,14 +190,14 @@ export function appKeyFormDestroy(formState=null) {
 
 // API THUNK ACTION CREATORS
 
-export function loadAppKeys(page=1, limit=10, order=null, cb=function(){}) {
-  Logger.log('debug', `[appKeys.actions] loadAppKeys(${page}, ${limit}, ${order}, ###)`);
+export function loadAppKeys(page=1, limit=10, order=null, filter=null, cb=function(){}) {
+  Logger.log('debug', `[appKeys.actions] loadAppKeys(${page}, ${limit}, ${order}, %j, ###)`, filter);
 
   return async function(dispatch) {
-    dispatch(appKeyListRequest(page, limit, order));
+    dispatch(appKeyListRequest(page, limit, order, filter));
 
     // call API
-    const response = await api.getAppKeys(page, limit, order);
+    const response = await api.getAppKeys(page, limit, order, filter);
     let success = false;
 
     // get app keys list success

@@ -26,13 +26,14 @@ export const USER_FORM_DESTROY = 'USER_FORM_DESTROY';
 
 // ACTION CREATORS
 
-export function userListRequest(page, limit, order) {
-  Logger.log('debug', `[users.actions] userListRequest(${page}, ${limit}, ${order})`);
+export function userListRequest(page, limit, order, filter) {
+  Logger.log('debug', `[users.actions] userListRequest(${page}, ${limit}, ${order}, %j)`, filter);
   return {
     type: USER_LIST_REQUEST,
     page: page,
     limit: limit,
     order: order,
+    filter: filter,
   }
 }
 
@@ -232,14 +233,14 @@ function flattenUser(user) {
   return {...user, ...userProfile};
 }
 
-export function loadUsers(page=1, limit=10, order=null, cb=function(){}) {
-  Logger.log('debug', `[users.actions] loadUsers(${page}, ${limit}, ${order}, ###)`);
+export function loadUsers(page=1, limit=10, order=null, filter=null, cb=function(){}) {
+  Logger.log('debug', `[users.actions] loadUsers(${page}, ${limit}, ${order}, %j, ###)`, filter);
 
   return async function(dispatch) {
-    dispatch(userListRequest(page, limit, order));
+    dispatch(userListRequest(page, limit, order, filter));
 
     // call API
-    const response = await api.getUsers(page, limit, order);
+    const response = await api.getUsers(page, limit, order, filter);
 
     // get users list success
     if (200 === response.get('status')) {

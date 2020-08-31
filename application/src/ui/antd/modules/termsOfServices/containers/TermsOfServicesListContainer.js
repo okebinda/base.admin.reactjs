@@ -33,8 +33,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    load: (page, limit, order, cb) => {
-      dispatch(loadTermsOfServices(page, limit, order, cb));
+    load: (page, limit, order, filter, cb) => {
+      dispatch(loadTermsOfServices(page, limit, order, filter, cb));
     },
     remove: (id, cb) => {
       dispatch(deleteTermsOfService(id, cb));

@@ -10,7 +10,7 @@ import Format from '../../../../../lib/Format';
 import QueryString from '../../../../../lib/QueryString';
 import Logger from '../../../../../lib/Logger';
 
-const LoginsList = ({component, page, limit, order, total, load, history, ...props}) => {
+const LoginsList = ({component, page, limit, order, total, filter, load, history, ...props}) => {
 
   const columns = [
     {
@@ -39,6 +39,11 @@ const LoginsList = ({component, page, limit, order, total, load, history, ...pro
       title: getI18n().t('logins_api'),
       dataIndex: 'api',
       key: 'api',
+      filters: [
+        {text: getI18n().t('logins_api_admin'), value: 1},
+        {text: getI18n().t('logins_api_public'), value: 2},
+      ],
+      filteredValue: 'api' in filter ? filter['api'].split(',') : null,
       render: code => code === 1 
         ? <Tag color="orange">{getI18n().t('logins_api_admin')}</Tag>
         : <Tag color="cyan">{getI18n().t('logins_api_public')}</Tag>,
@@ -47,6 +52,11 @@ const LoginsList = ({component, page, limit, order, total, load, history, ...pro
       title: getI18n().t('logins_success'),
       dataIndex: 'success',
       key: 'success',
+      filters: [
+        {text: getI18n().t('boolean_true'), value: 1},
+        {text: getI18n().t('boolean_false'), value: 0},
+      ],
+      filteredValue: 'success' in filter ? filter['success'].split(',') : null,
       render: success => <BooleanTag value={success} />,
     },
     {
@@ -69,7 +79,7 @@ const LoginsList = ({component, page, limit, order, total, load, history, ...pro
   const handleTableChange = (pagination, filters, sorter) => {
 
     let path = props.location.pathname;
-    let params = null;
+    const params = {};
 
     // handle pagination
     if ('current' in pagination && pagination['current']) {
@@ -80,16 +90,26 @@ const LoginsList = ({component, page, limit, order, total, load, history, ...pro
     if ('field' in sorter && 'order' in sorter) {
       if (sorter['field'] && sorter['order']) {
         const order = sorter['field'] + '.' + (sorter['order'] === 'ascend' ? 'asc' : 'desc');
-        params = {order: order};
+        params['order'] = order;
+      }
+    }
+
+    // handle filters
+    if (filters) {
+      for (const key in filters) {
+        if (filters[key]) {
+          params[key] = filters[key].join(',');
+        }
       }
     }
 
     history.push(QueryString.append(path, params));
   }
 
+  const filterString = JSON.stringify(filter);
   useEffect(() => {
-    load(page, limit, order);
-  }, [page, limit, order, load]);
+    load(page, limit, order, JSON.parse(filterString));
+  }, [page, limit, order, filterString, load]);
 
   return (
     <Translation>{(t) => 

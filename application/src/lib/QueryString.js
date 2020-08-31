@@ -28,7 +28,9 @@ const QueryString = {
     const pairs = (qs[0] === '?' ? qs.substr(1) : qs).split('&');
     for (var i = 0; i < pairs.length; i++) {
         const pair = pairs[i].split('=');
-        params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+        if (pair[0]) {
+          params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+        }
     }
     return params;
   }

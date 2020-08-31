@@ -22,14 +22,15 @@ export const ROLE_DELETE_SUCCESS = 'ROLE_DELETE_SUCCESS';
 export const ROLE_DELETE_FAILURE = 'ROLE_DELETE_FAILURE';
 export const ROLE_FORM_DESTROY = 'ROLE_FORM_DESTROY';
 
-export function roleListRequest(page, limit, order, type) {
-  Logger.log('debug', `[roles.actions] roleListRequest(${page}, ${limit}, ${order}, ${type})`);
+export function roleListRequest(page, limit, order, filter, type) {
+  Logger.log('debug', `[roles.actions] roleListRequest(${page}, ${limit}, ${order}, %j, ${type})`, filter);
   return {
     type: ROLE_LIST_REQUEST,
     page: page,
     limit: limit,
     roleType: type,
     order: order,
+    filter: filter,
   }
 }
 
@@ -222,14 +223,14 @@ export function roleFormDestroy(formState=null) {
 
 // API THUNK ACTION CREATORS
 
-export function loadRoles(page=1, limit=10, order=null, type=null, cb=function(){}) {
-  Logger.log('debug', `[roles.actions] loadRoles(${page}, ${limit}, ${type}, ${order}, ###)`);
+export function loadRoles(page=1, limit=10, order=null, filter=null, type=null, cb=function(){}) {
+  Logger.log('debug', `[roles.actions] loadRoles(${page}, ${limit}, ${order}, %j, ${type}, ###)`, filter);
 
   return async function(dispatch) {
-    dispatch(roleListRequest(page, limit, order, type));
+    dispatch(roleListRequest(page, limit, order, filter, type));
 
     // call API
-    const response = await api.getRoles(page, limit, order, type);
+    const response = await api.getRoles(page, limit, order, filter, type);
 
     // get roles list success
     if (200 === response.get('status')) {

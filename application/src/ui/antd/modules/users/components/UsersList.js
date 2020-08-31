@@ -10,7 +10,7 @@ import Format from '../../../../../lib/Format';
 import QueryString from '../../../../../lib/QueryString';
 import Logger from '../../../../../lib/Logger';
 
-const UsersList = ({component, page, limit, order, total, load, remove, history, ...props}) => {
+const UsersList = ({component, page, limit, order, filter, total, load, remove, history, ...props}) => {
 
   const columns = [
     {
@@ -47,6 +47,14 @@ const UsersList = ({component, page, limit, order, total, load, remove, history,
       title: getI18n().t('table_header_status'),
       dataIndex: 'status',
       key: 'status',
+      filters: [
+        {text: getI18n().t('status_enabled'), value: 1},
+        {text: getI18n().t('status_disabled'), value: 2},
+        {text: getI18n().t('status_archived'), value: 3},
+        {text: getI18n().t('status_deleted'), value: 4},
+        {text: getI18n().t('status_pending'), value: 5},
+      ],
+      filteredValue: 'status' in filter ? filter['status'].split(',') : null,
       render: code => <StatusTag status={code} />,
     },
     {
@@ -94,7 +102,7 @@ const UsersList = ({component, page, limit, order, total, load, remove, history,
   const handleTableChange = (pagination, filters, sorter) => {
 
     let path = props.location.pathname;
-    let params = null;
+    const params = {};
 
     // handle pagination
     if ('current' in pagination && pagination['current']) {
@@ -105,16 +113,26 @@ const UsersList = ({component, page, limit, order, total, load, remove, history,
     if ('field' in sorter && 'order' in sorter) {
       if (sorter['field'] && sorter['order']) {
         const order = sorter['field'] + '.' + (sorter['order'] === 'ascend' ? 'asc' : 'desc');
-        params = {order: order};
+        params['order'] = order;
+      }
+    }
+
+    // handle filters
+    if (filters) {
+      for (const key in filters) {
+        if (filters[key]) {
+          params[key] = filters[key].join(',');
+        }
       }
     }
 
     history.push(QueryString.append(path, params));
   }
 
+  const filterString = JSON.stringify(filter);
   useEffect(() => {
-    load(page, limit, order);
-  }, [page, limit, order, load]);
+    load(page, limit, order, JSON.parse(filterString));
+  }, [page, limit, order, filterString, load]);
 
   return (
     <Translation>{(t) => 

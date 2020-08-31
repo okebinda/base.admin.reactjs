@@ -33,8 +33,8 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    load: (page, limit, order, type, cb) => {
-      dispatch(loadRoles(page, limit, order, type, cb));
+    load: (page, limit, order, filter, type, cb) => {
+      dispatch(loadRoles(page, limit, order, filter, type, cb));
     },
     remove: (id, cb) => {
       dispatch(deleteRole(id, cb));

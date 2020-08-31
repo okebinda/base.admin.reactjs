@@ -28,6 +28,7 @@ class RolesScreen extends Component {
 
     const loadingIcon = <Spin indicator={<LoadingOutlined style={{ fontSize: 20 }} spin />} />;
     const page = parseInt(this.props.match.params.page ? this.props.match.params.page : 1);
+    const {order, ...filter} = QueryString.parse(this.props.location.search);
 
     return (
       <Translation>{(t) => 
@@ -57,15 +58,8 @@ class RolesScreen extends Component {
                   component="RolesScreen"
                   page={page}
                   limit={this.props.limit}
-                  order={(() => {
-                    if (this.props.location.search) {
-                      const qs = QueryString.parse(this.props.location.search);
-                      if ('order' in qs) {
-                        return qs['order'];
-                      }
-                    }
-                    return 'updated_at.desc';
-                  })()}
+                  order={order || 'updated_at.desc'}
+                  filter={filter}
                 />
               </Card>
             </Col>

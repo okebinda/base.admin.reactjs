@@ -195,12 +195,12 @@ class API {
   }
 
   // GET /roles
-  async getRoles(page=1, limit=10, order=null, type=null) {
-    Logger.log('debug', `API.getRoles(${page}, ${limit}, ${order}, ${type})`);
+  async getRoles(page=1, limit=10, order=null, filter=null, type=null) {
+    Logger.log('debug', `API.getRoles(${page}, ${limit}, ${order}, %j, ${type})`, filter);
     if (type) {
-      return await this.GET(this._getUri(QueryString.append(`/roles/${type}/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+      return await this.GET(this._getUri(QueryString.append(`/roles/${type}/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
     } else {
-      return await this.GET(this._getUri(QueryString.append(`/roles/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+      return await this.GET(this._getUri(QueryString.append(`/roles/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
     }
   }
 
@@ -241,9 +241,9 @@ class API {
   }
 
   // GET /users
-  async getUsers(page=1, limit=10, order=null) {
-    Logger.log('debug', `API.getUsers(${page}, ${limit}, ${order})`);
-    return await this.GET(this._getUri(QueryString.append(`/users/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+  async getUsers(page=1, limit=10, order=null, filter=null) {
+    Logger.log('debug', `API.getUsers(${page}, ${limit}, ${order}, %j)`, filter);
+    return await this.GET(this._getUri(QueryString.append(`/users/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
   }
 
   // GET /user/{id}
@@ -271,9 +271,9 @@ class API {
   }
 
   // GET /administrators
-  async getAdministrators(page=1, limit=10, order=null) {
-    Logger.log('debug', `API.getAdministrators(${page}, ${limit}, ${order})`);
-    return await this.GET(this._getUri(QueryString.append(`/administrators/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+  async getAdministrators(page=1, limit=10, order=null, filter=null) {
+    Logger.log('debug', `API.getAdministrators(${page}, ${limit}, ${order}, %j)`, filter);
+    return await this.GET(this._getUri(QueryString.append(`/administrators/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
   }
 
   // GET /administrator/{id}
@@ -301,9 +301,9 @@ class API {
   }
 
   // GET /app_keys
-  async getAppKeys(page=1, limit=10, order=null) {
-    Logger.log('debug', `API.getAppKeys(${page}, ${limit}, ${order})`);
-    return await this.GET(this._getUri(QueryString.append(`/app_keys/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+  async getAppKeys(page=1, limit=10, order=null, filter=null) {
+    Logger.log('debug', `API.getAppKeys(${page}, ${limit}, ${order}, %j)`, filter);
+    return await this.GET(this._getUri(QueryString.append(`/app_keys/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
   }
 
   // GET /app_key/{id}
@@ -331,9 +331,9 @@ class API {
   }
 
   // GET /terms_of_services
-  async getTermsOfServices(page=1, limit=10, order=null) {
-    Logger.log('debug', `API.getTermsOfServices(${page}, ${limit}, ${order})`);
-    return await this.GET(this._getUri(QueryString.append(`/terms_of_services/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+  async getTermsOfServices(page=1, limit=10, order=null, filter=null) {
+    Logger.log('debug', `API.getTermsOfServices(${page}, ${limit}, ${order}, %j)`, filter);
+    return await this.GET(this._getUri(QueryString.append(`/terms_of_services/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
   }
 
   // GET /terms_of_service/{id}
@@ -361,9 +361,9 @@ class API {
   }
 
   // GET /logins
-  async getLogins(page=1, limit=10, order=null) {
-    Logger.log('debug', `API.getLogins(${page}, ${limit}, ${order})`);
-    return await this.GET(this._getUri(QueryString.append(`/logins/${parseInt(page)}/${parseInt(limit)}`, {'order_by': order})));
+  async getLogins(page=1, limit=10, order=null, filter=null) {
+    Logger.log('debug', `API.getLogins(${page}, ${limit}, ${order}, %j)`, filter);
+    return await this.GET(this._getUri(QueryString.append(`/logins/${parseInt(page)}/${parseInt(limit)}`, {order_by: order, ...filter})));
   }
 }
 
