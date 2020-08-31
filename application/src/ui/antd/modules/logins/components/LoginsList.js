@@ -4,6 +4,7 @@ import {Table, Tag} from 'antd';
 import {withRouter} from "react-router";
 
 import {BooleanTag} from '../../../elements/components/Tags';
+import {getColumnSearchProps} from '../../../elements/components/TableColumnFilters';
 import {pathTo} from '../../../Routes';
 import Config from '../../../../../Config';
 import Format from '../../../../../lib/Format';
@@ -11,6 +12,16 @@ import QueryString from '../../../../../lib/QueryString';
 import Logger from '../../../../../lib/Logger';
 
 const LoginsList = ({component, page, limit, order, total, filter, load, history, ...props}) => {
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+  };
+
+  const handleReset = (clearFilters, dataIndex) => {
+    clearFilters();
+    delete filter[dataIndex];
+    history.push(QueryString.append(props.location.pathname, {order, ...filter}));
+  };
 
   const columns = [
     {
@@ -24,16 +35,19 @@ const LoginsList = ({component, page, limit, order, total, filter, load, history
       title: getI18n().t('logins_user_id'),
       dataIndex: 'user_id',
       key: 'user_id',
+      ...getColumnSearchProps('user_id', handleSearch, handleReset),
     },
     {
       title: getI18n().t('logins_username'),
       dataIndex: 'username',
       key: 'username',
+      ...getColumnSearchProps('username', handleSearch, handleReset),
     },
     {
       title: getI18n().t('logins_ip_address'),
       dataIndex: 'ip_address',
       key: 'ip_address',
+      ...getColumnSearchProps('ip_address', handleSearch, handleReset),
     },
     {
       title: getI18n().t('logins_api'),

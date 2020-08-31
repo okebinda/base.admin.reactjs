@@ -217,6 +217,19 @@ export function loadAppKeys(page=1, limit=10, order=null, filter=null, cb=functi
       dispatch(addEntities(normalizedEntities));
       dispatch(appKeyListSuccess(data));
       success = true;
+
+    } else if (1 === page && 204 === response.get('status')) {
+
+      Logger.log('info', `Get API app keys success [empty]. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
+      const data = {
+        page: page,
+        limit: limit,
+        order: order,
+        total: 0,
+        result: []
+      };
+      dispatch(appKeyListSuccess(data));
+      success = true;
       
     // get app keys list failure
     } else {

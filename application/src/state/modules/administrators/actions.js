@@ -241,6 +241,18 @@ export function loadAdministrators(page=1, limit=10, order=null, filter=null, cb
 
       dispatch(addEntities(normalizedEntities));
       dispatch(administratorListSuccess(data));
+
+    } else if (1 === page && 204 === response.get('status')) {
+
+      Logger.log('info', `Get API administrators success [empty]. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
+      const data = {
+        page: page,
+        limit: limit,
+        order: order,
+        total: 0,
+        result: []
+      };
+      dispatch(administratorListSuccess(data));
       
     // get administrators list failure
     } else {

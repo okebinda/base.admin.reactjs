@@ -4,6 +4,7 @@ import {Translation, getI18n} from 'react-i18next';
 import {Table} from 'antd';
 
 import ListActions from '../../../elements/components/ListActions';
+import {getColumnSearchProps} from '../../../elements/components/TableColumnFilters';
 import {StatusTag} from '../../../elements/components/Tags';
 import {pathTo} from '../../../Routes';
 import Format from '../../../../../lib/Format';
@@ -11,6 +12,16 @@ import QueryString from '../../../../../lib/QueryString';
 import Logger from '../../../../../lib/Logger';
 
 const AppKeysList = ({component, page, limit, order, filter, total, load, remove, history, ...props}) => {
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+  };
+
+  const handleReset = (clearFilters, dataIndex) => {
+    clearFilters();
+    delete filter[dataIndex];
+    history.push(QueryString.append(props.location.pathname, {order, ...filter}));
+  };
 
   const columns = [
     {
@@ -26,12 +37,14 @@ const AppKeysList = ({component, page, limit, order, filter, total, load, remove
       key: 'application',
       defaultSortOrder: order === 'application.asc' ? 'ascend' : (order === 'application.desc' ? 'descend' : null),
       sorter: true,
+      ...getColumnSearchProps('application', handleSearch, handleReset),
     },
     {
       title: getI18n().t('app_key_key'),
       dataIndex: 'key',
       key: 'key',
       responsive: ['xl'],
+      ...getColumnSearchProps('key', handleSearch, handleReset),
     },
     {
       title: getI18n().t('table_header_status'),

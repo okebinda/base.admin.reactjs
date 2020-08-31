@@ -4,6 +4,7 @@ import {Translation, getI18n} from 'react-i18next';
 import {Table} from 'antd';
 
 import ListActions from '../../../elements/components/ListActions';
+import {getColumnSearchProps} from '../../../elements/components/TableColumnFilters';
 import {BooleanTag} from '../../../elements/components/Tags';
 import {pathTo} from '../../../Routes';
 import Format from '../../../../../lib/Format';
@@ -11,6 +12,16 @@ import QueryString from '../../../../../lib/QueryString';
 import Logger from '../../../../../lib/Logger';
 
 const RolesList = ({component, page, limit, order, filter, total, load, remove, history, ...props}) => {
+
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+  };
+
+  const handleReset = (clearFilters, dataIndex) => {
+    clearFilters();
+    delete filter[dataIndex];
+    history.push(QueryString.append(props.location.pathname, {order, ...filter}));
+  };
 
   const columns = [
     {
@@ -26,6 +37,7 @@ const RolesList = ({component, page, limit, order, filter, total, load, remove, 
       key: 'name',
       defaultSortOrder: order === 'id.asc' ? 'ascend' : (order === 'id.desc' ? 'descend' : null),
       sorter: true,
+      ...getColumnSearchProps('name', handleSearch, handleReset),
     },
     {
       title: getI18n().t('roles_header_admin_role'),

@@ -260,6 +260,18 @@ export function loadUsers(page=1, limit=10, order=null, filter=null, cb=function
 
       dispatch(addEntities(normalizedEntities));
       dispatch(userListSuccess(data));
+
+    } else if (1 === page && 204 === response.get('status')) {
+
+      Logger.log('info', `Get API users success [empty]. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
+      const data = {
+        page: page,
+        limit: limit,
+        order: order,
+        total: 0,
+        result: []
+      };
+      dispatch(userListSuccess(data));
       
     // get users list failure
     } else {

@@ -220,6 +220,18 @@ export function loadTermsOfServices(page=1, limit=10, order=null, filter=null, c
 
       dispatch(addEntities(normalizedEntities));
       dispatch(termsOfServiceListSuccess(data));
+
+    } else if (1 === page && 204 === response.get('status')) {
+
+      Logger.log('info', `Get API ToS list success [empty]. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
+      const data = {
+        page: page,
+        limit: limit,
+        order: order,
+        total: 0,
+        result: []
+      };
+      dispatch(termsOfServiceListSuccess(data));
       
     // get ToS list failure
     } else {

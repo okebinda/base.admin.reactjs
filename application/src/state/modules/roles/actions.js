@@ -248,6 +248,18 @@ export function loadRoles(page=1, limit=10, order=null, filter=null, type=null, 
 
       dispatch(addEntities(normalizedEntities));
       dispatch(roleListSuccess(data));
+
+    } else if (1 === page && 204 === response.get('status')) {
+
+      Logger.log('info', `Get API roles success [empty]. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
+      const data = {
+        page: page,
+        limit: limit,
+        order: order,
+        total: 0,
+        result: []
+      };
+      dispatch(roleListSuccess(data));
       
     // get roles list failure
     } else {

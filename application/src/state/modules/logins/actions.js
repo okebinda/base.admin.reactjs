@@ -74,6 +74,18 @@ export function loadLogins(page=1, limit=10, order=null, filter=null, cb=functio
       dispatch(addEntities(normalizedEntities));
       dispatch(loginListSuccess(data));
       success = true;
+
+    } else if (1 === page && 204 === response.get('status')) {
+
+      Logger.log('info', `Get API logins list success [empty]. Page: ${page}, Limit: ${limit}, Order: ${order}.`);
+      const data = {
+        page: page,
+        limit: limit,
+        order: order,
+        total: 0,
+        result: []
+      };
+      dispatch(loginListSuccess(data));
       
     // get logins list failure
     } else {
