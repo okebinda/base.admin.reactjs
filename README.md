@@ -1,8 +1,8 @@
-# Base Admin React.JS Site
+# Base Admin ReactJS Site
 
-This repository holds the source code for a simple admin console for a REST API written in JavaScript using React.JS that can be used as the starter package for a new project. It also contains a virtual machine for local development.
+This repository holds the source code for a simple admin console for a REST API written in JavaScript using ReactJS that can be used as the starter package for a new project. It also contains a virtual machine for local development.
 
-This is a React.JS application using CoreUI (https://coreui.io/) for the interface. It can be adjusted to fit any REST API, but is made to work out-of-the-box with https://github.com/okebinda/base.api.python.
+This is a ReactJS application using Ant Design (https://ant.design/) for the interface. It can be adjusted to fit any REST API, but is made to work out-of-the-box with https://github.com/okebinda/base.api.python.
 
 Local development is run on a local virtual machine managed by Vagrant. To install the virtual machine, make sure you have installed Vagrant (https://www.vagrantup.com/) and a virtual machine provider, such as VirtualBox (https://www.virtualbox.org/).
 
@@ -71,7 +71,13 @@ URL: http://base.admin.reactjs.vm:3000
 
 ### Run Unit Tests
 
-There are currently no unit tests.
+There are currently minimal unit tests; the purpose of these is to act as smoke tests during a CI/CD build pipeline to make sure the code and dependencies aren't fundamentally broken. Should be added to over time to create an actual suite of unit tests.
+
+```ssh
+> vagrant ssh
+$ cd /vagrant/application
+$ npm test
+```
 
 
 ## Deployment
@@ -81,18 +87,19 @@ There are currently no unit tests.
 
 ## Repository Directory Structure
 
-| Directory/File      | Purpose       |
-| ------------------- | ------------- |
-| /application        | Contains all files required for the application to run |
-|  ├─/public          | Any publically available web resouces, such as HTML, CSS, images, etc. |
-|  ├─/src             | Application source code |
-|  └─/package.json    | The Node.JS manifest file for the project |
+| Directory/File      | Purpose                                                                                                          |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| /application        | Contains all files required for the application to run                                                           |
+|  ├─/public          | Any publically available web resouces, such as HTML, CSS, images, etc.                                           |
+|  ├─/src             | Application source code                                                                                          |
+|  ├─/test            | Unit tests                                                                                                       |
+|  └─/package.json    | The NodeJS manifest file for the project                                                                         |
 | /scripts            | Contains various scripts, such as the script to build the application for the first time (installs dependencies) |
-| /data               | Contains the data used to populate the application for development and testing, such as data fixtures |
-| /deploy             | Deployment scripts |
-|  └─/packages        | Contains packages created by the `make` script - can be temporary or committed |
-| /documentation      | Documentation files |
-| /provision          | Provision scripts for local virtual machine and production servers |
-| /tests              | Unit tests |
-| README.md           | This file |
-| Vagranfile          | Configuration file for Vagrant when provisioning local development virtual machine |
+| /data               | Contains the data used to populate the application for development and testing, such as data fixtures            |
+| /deploy             | Deployment scripts                                                                                               |
+|  └─/packages        | Contains packages created by the `make` script - can be temporary or committed                                   |
+| /documentation      | Documentation files                                                                                              |
+| /provision          | Provision scripts for local virtual machine and production servers                                               |
+| /tests              | Integration tests                                                                                                |
+| README.md           | This file                                                                                                        |
+| Vagranfile          | Configuration file for Vagrant when provisioning local development virtual machine                               |
