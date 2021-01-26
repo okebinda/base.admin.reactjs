@@ -12,7 +12,7 @@ import Breadcrumbs from '../../elements/components/Breadcrumbs';
 import useWindowDimensions from '../../../../lib/WindowDimensions';
 import Config from '../../../../Config';
 
-import '../styles/DefaultLayout.scss';
+import '../styles/DefaultLayout.less';
 
 const {Header, Content, Footer, Sider} = Layout;
 
