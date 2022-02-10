@@ -17,7 +17,7 @@
     "i18next": "19.8.4",
     "immutable": "4.0.0-rc.12",
     "normalizr": "3.6.1",
-    "node-sass": "4.14.1",
+    "node-sass": "7.0.0",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-helmet": "6.1.0",
